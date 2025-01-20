@@ -5,7 +5,7 @@
   "icon": "./VEVELOGO.png",
   "linux": {
     "target": "AppImage",
-    "category": "Utility"
+    "category": "Video"
   },
   "win": {
     "target": ["portable", "msi"]
