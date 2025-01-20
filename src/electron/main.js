@@ -2,14 +2,10 @@ import { app, BrowserWindow, globalShortcut } from "electron";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { loadEnv } from "vite";
 
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-// Get the environment variables
-const env = loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
 const createWindow = () => {
   const win = new BrowserWindow({
