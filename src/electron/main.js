@@ -2,10 +2,14 @@ import { app, BrowserWindow, globalShortcut } from "electron";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import { loadEnv } from "vite";
 
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+// Get the environment variables
+const env = loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -21,11 +25,15 @@ const createWindow = () => {
     },
   });
 
-  win.loadFile(path.join("dist-react/index.html"));
+  // check if the app is running in development mode
+  // if VITE_DEV_MODE exists in .env, then we are in dev mode
+  if (env.VITE_DEV_MODE) {
+    win.loadURL("http://localhost:5173");
+  } else {
+    win.loadFile(path.join("dist-react/index.html"));
+  }
 
-  // TODO: make a DevTools toggle with globalShortcut F11 -
-  // F12 for toggling the devtools is
-  //  not working properly, so I changed to F11
+  // Toggling Devtools using F11 shortcut
   globalShortcut.register("F11", () => {
     if (win.webContents.isDevToolsOpened()) {
       win.webContents.closeDevTools();
