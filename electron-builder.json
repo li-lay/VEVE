@@ -2,7 +2,7 @@
   "appId": "dev.lilay.veve",
   "files": ["src/electron", "dist-react"],
   "extraResources": ["dist-electron/preload.cjs", "src/assets/**"],
-  "icon": "./CREATE_OUR_APP_ICON_FOR_WINDOW_BUILDS.png",
+  "icon": "./VEVELOGO.png",
   "linux": {
     "target": "AppImage",
     "category": "Utility"
