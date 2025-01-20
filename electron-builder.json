@@ -1,7 +1,7 @@
 {
   "appId": "dev.lilay.veve",
   "files": ["src/electron", "dist-react"],
-  "extraResources": ["dist-electron/preload.cjs", "src/assets/**"],
+  "extraResources": ["src/assets/**"],
   "icon": "./VEVELOGO.png",
   "linux": {
     "target": "AppImage",
