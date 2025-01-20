@@ -7,6 +7,10 @@ const createWindow = () => {
     height: 600,
     darkTheme: true,
     autoHideMenuBar: true,
+    webPreferences: {
+      contextIsolation: true, // Recommended for security
+      enableRemoteModule: false, // Disable remote module
+    },
   });
 
   win.loadFile(path.join("dist-react/index.html"));
