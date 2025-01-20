@@ -1,5 +1,11 @@
 import { app, BrowserWindow, globalShortcut } from "electron";
 import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+// Get the current directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -8,8 +14,10 @@ const createWindow = () => {
     darkTheme: true,
     autoHideMenuBar: true,
     webPreferences: {
+      preload: path.join(__dirname, "preload.mjs"),
       contextIsolation: true, // Recommended for security
       enableRemoteModule: false, // Disable remote module
+      nodeIntegration: true,
     },
   });
 
