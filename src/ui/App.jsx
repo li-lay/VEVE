@@ -1,4 +1,5 @@
 import "./App.css";
+import Sidebar from "./components/Sidebar/Sidebar";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -20,10 +21,11 @@ function App() {
 
   return (
     <>
-      <h1>Hello World!</h1>
+      {/* <h1>Hello World!</h1>
       <h2>Nodejs: {versions.node}</h2>
       <h2>Chrome: {versions.chrome}</h2>
-      <h2>Electron: {versions.electron}</h2>
+      <h2>Electron: {versions.electron}</h2> */}
+      <Sidebar></Sidebar>
     </>
   );
 }
