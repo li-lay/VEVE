@@ -2,14 +2,14 @@ import { app, BrowserWindow, globalShortcut } from "electron";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { loadEnv } from "vite";
+import dotenv from "dotenv";
+
+// Get the environment variables
+dotenv.config();
 
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-// Get the environment variables
-const env = loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -25,9 +25,10 @@ const createWindow = () => {
     },
   });
 
-  // check if the app is running in development mode
-  // if VITE_DEV_MODE exists in .env, then we are in dev mode
-  if (env.VITE_DEV_MODE) {
+  // ===== HOT RELOADING =====
+  // create VITE_DEV_MODE in .env for development mode
+  // delete/comment out the VITE_DEV_MODE when building binaries
+  if (process.env.VITE_DEV_MODE) {
     win.loadURL("http://localhost:5173");
   } else {
     win.loadFile(path.join("dist-react/index.html"));
