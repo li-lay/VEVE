@@ -7,7 +7,7 @@ const Sidebar = () => {
         <label
           title="Dashboard"
           htmlFor="dashboard"
-          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
+          className="relative w-full h-16 p-4 ease-in-out duration-300 group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
           <input
             className="hidden peer/expand"
@@ -29,7 +29,7 @@ const Sidebar = () => {
         <label
           title="Options"
           htmlFor="options"
-          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
+          className="relative w-full h-16 p-4 ease-in-out duration-300 group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
           <input
             className="hidden peer/expand"
@@ -55,7 +55,7 @@ const Sidebar = () => {
         <label
           title="Progress"
           htmlFor="progress"
-          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
+          className="relative w-full h-16 p-4 ease-in-out duration-300 group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
           <input
             className="hidden peer/expand"
@@ -76,7 +76,7 @@ const Sidebar = () => {
         <label
           title="About"
           htmlFor="about"
-          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
+          className="relative w-full h-16 p-4 ease-in-out duration-300 group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
           <input
             className="hidden peer/expand"
@@ -98,7 +98,7 @@ const Sidebar = () => {
         <label
           title="Settings"
           htmlFor="settings"
-          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
+          className="relative w-full h-16 p-4 ease-in-out duration-300 group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
           <input
             className="hidden peer/expand"
