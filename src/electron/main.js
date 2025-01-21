@@ -31,20 +31,20 @@ const createWindow = () => {
   // delete/comment out the VITE_DEV_MODE when building binaries
   if (process.env.VITE_DEV_MODE) {
     win.loadURL("http://localhost:5173");
+
+    // Toggling Devtools using F11 shortcut
+    globalShortcut.register("F11", () => {
+      if (win.webContents.isDevToolsOpened()) {
+        win.webContents.closeDevTools();
+        win.setSize(800, 600);
+      } else {
+        win.webContents.openDevTools();
+        win.setSize(1200, 600);
+      }
+    });
   } else {
     win.loadFile(path.join("dist-react/index.html"));
   }
-
-  // Toggling Devtools using F11 shortcut
-  globalShortcut.register("F11", () => {
-    if (win.webContents.isDevToolsOpened()) {
-      win.webContents.closeDevTools();
-      win.setSize(800, 600);
-    } else {
-      win.webContents.openDevTools();
-      win.setSize(1200, 600);
-    }
-  });
 };
 
 app.whenReady().then(() => {
