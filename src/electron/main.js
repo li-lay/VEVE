@@ -1,4 +1,4 @@
-import { app, BrowserWindow, globalShortcut } from "electron";
+import { app, BrowserWindow, globalShortcut, ipcMain } from "electron";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -17,6 +17,7 @@ const createWindow = () => {
     height: 600,
     darkTheme: true,
     autoHideMenuBar: true,
+    frame: false,
     icon: path.join(__dirname, "../../VEVELOGO.png"),
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
@@ -45,6 +46,11 @@ const createWindow = () => {
   } else {
     win.loadFile(path.join("dist-react/index.html"));
   }
+
+  // Close window
+  ipcMain.on("close-window", () => {
+    win.close();
+  });
 };
 
 app.whenReady().then(() => {
@@ -54,4 +60,10 @@ app.whenReady().then(() => {
 // Unregister all shortcuts when the app quits
 app.on("will-quit", () => {
   globalShortcut.unregisterAll();
+});
+
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
 });

@@ -1,6 +1,7 @@
-import "./App.css";
-import Sidebar from "./components/Sidebar/Sidebar";
 import { useEffect, useState } from "react";
+import Sidebar from "./components/Sidebar/Sidebar";
+import TitleBar from "./components/TitleBar/TitleBar";
+import "./App.css";
 
 function App() {
   const [versions, setVersions] = useState({});
@@ -25,7 +26,12 @@ function App() {
       <h2>Nodejs: {versions.node}</h2>
       <h2>Chrome: {versions.chrome}</h2>
       <h2>Electron: {versions.electron}</h2> */}
-      <Sidebar></Sidebar>
+      <header className="w-full h-max">
+        <TitleBar />
+      </header>
+      <main className="w-full h-full flex flex-row gap-6 ">
+        <Sidebar />
+      </main>
     </>
   );
 }
