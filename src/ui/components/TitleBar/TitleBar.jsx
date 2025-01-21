@@ -3,7 +3,7 @@ import CloseIcon from "../icons/CloseIcon";
 
 const TitleBar = () => {
   return (
-    <div className="grid grid-cols-1 grid-rows-1 items-center w-full h-max py-2 bg-accent z-50 fixed top-0 left-0 draggable">
+    <div className="grid grid-cols-1 grid-rows-1 items-center h-8 w-full py-2 bg-accent z-50 fixed top-0 left-0 draggable">
       {/* Title Contents */}
       <div className="flex justify-center gap-1 w-full col-[1/1] row-[1/1]">
         <img src={VEVELOGO} alt="VEVE Logo" className="size-6" />
