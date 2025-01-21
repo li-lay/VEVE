@@ -1,22 +1,22 @@
-import React from "react";
-
-const Radio = () => {
+const Sidebar = () => {
   return (
     <div className="flex flex-col justify-center items-center relative transition-all duration-[450ms] ease-in-out w-16">
-      <article className="border border-solid border-gray-700 h-screen w-full ease-in-out duration-500 left-0 inline-block shadow-lg shadow-black/15 bg-white">
+      <article
+        className={`border-r border-[#F89B2A]/20 border-solid h-screen w-full ease-in-out duration-500 left-0 shadow-lg shadow-black/15 bg-gray flex flex-col justify-center`}
+      >
         <label
           htmlFor="dashboard"
-          className="has-[:checked]:shadow-lg relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-black rounded-xl"
+          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
           <input
             className="hidden peer/expand"
             type="radio"
             name="path"
             id="dashboard"
-            checked="true"
+            defaultChecked={true}
           />
           <svg
-            className="peer-hover/expand:scale-125 peer-hover/expand:text-blue-400 peer-hover/expand:fill-blue-400 peer-checked/expand:text-blue-400 peer-checked/expand:fill-blue-400 text-2xl peer-checked/expand:scale-125 ease-in-out duration-300"
+            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
             xmlns="http://www.w3.org/2000/svg"
             width={24}
             height={24}
@@ -27,7 +27,7 @@ const Radio = () => {
         </label>
         <label
           htmlFor="profile"
-          className="has-[:checked]:shadow-lg relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-black rounded-xl"
+          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
           <input
             className="hidden peer/expand"
@@ -36,8 +36,8 @@ const Radio = () => {
             id="profile"
           />
           <svg
-            className="peer-hover/expand:scale-125 peer-hover/expand:text-blue-400 peer-hover/expand:fill-blue-400 peer-checked/expand:text-blue-400 peer-checked/expand:fill-blue-400 text-2xl peer-checked/expand:scale-125 ease-in-out duration-300"
-            xmlns="http://www.w3.org/2000/svg"
+            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] text-2xl peer-checked/expand:scale-125 ease-in-out duration-300"
+      xmlns="http://www.w3.org/2000/svg`}
             width={24}
             height={24}
             viewBox="0 0 24 24"
@@ -47,7 +47,7 @@ const Radio = () => {
         </label>
         <label
           htmlFor="messages"
-          className="has-[:checked]:shadow-lg relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-black rounded-xl"
+          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
           <input
             className="hidden peer/expand"
@@ -56,8 +56,8 @@ const Radio = () => {
             id="messages"
           />
           <svg
-            className="peer-hover/expand:scale-125 peer-hover/expand:text-blue-400 peer-hover/expand:fill-blue-400 peer-checked/expand:text-blue-400 peer-checked/expand:fill-blue-400 text-2xl peer-checked/expand:scale-125 ease-in-out duration-300"
-            xmlns="http://www.w3.org/2000/svg"
+            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] text-2xl peer-checked/expand:scale-125 ease-in-out duration-300"
+      xmlns="http://www.w3.org/2000/svg`}
             width={24}
             height={24}
             viewBox="0 0 24 24"
@@ -68,7 +68,7 @@ const Radio = () => {
         </label>
         <label
           htmlFor="help"
-          className="has-[:checked]:shadow-lg relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-black rounded-xl"
+          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
           <input
             className="hidden peer/expand"
@@ -77,7 +77,7 @@ const Radio = () => {
             id="help"
           />
           <svg
-            className="peer-hover/expand:scale-125 peer-hover/expand:text-blue-400 peer-hover/expand:fill-blue-400 peer-checked/expand:text-blue-400 peer-checked/expand:fill-blue-400 text-2xl peer-checked/expand:scale-125 ease-in-out duration-300"
+            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
             xmlns="http://www.w3.org/2000/svg"
             width={24}
             height={24}
@@ -89,7 +89,7 @@ const Radio = () => {
         </label>
         <label
           htmlFor="settings"
-          className="has-[:checked]:shadow-lg relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-black rounded-xl"
+          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
           <input
             className="hidden peer/expand"
@@ -98,7 +98,7 @@ const Radio = () => {
             id="settings"
           />
           <svg
-            className="peer-hover/expand:scale-125 peer-hover/expand:text-blue-400 peer-hover/expand:fill-blue-400 peer-checked/expand:text-blue-400 peer-checked/expand:fill-blue-400 text-2xl peer-checked/expand:scale-125 ease-in-out duration-300"
+            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
             xmlns="http://www.w3.org/2000/svg"
             width={24}
             height={24}
@@ -113,4 +113,4 @@ const Radio = () => {
   );
 };
 
-export default Radio;
+export default Sidebar;

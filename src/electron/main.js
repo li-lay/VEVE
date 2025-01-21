@@ -17,6 +17,7 @@ const createWindow = () => {
     height: 600,
     darkTheme: true,
     autoHideMenuBar: true,
+    icon: path.join(__dirname, "../../VEVELOGO.png"),
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
       contextIsolation: true, // Recommended for security
