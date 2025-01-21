@@ -2,9 +2,10 @@ const Sidebar = () => {
   return (
     <div className="flex flex-col justify-center items-center relative transition-all duration-[450ms] ease-in-out w-16">
       <article
-        className={`border-r border-[#F89B2A]/20 border-solid h-screen w-full ease-in-out duration-500 left-0 shadow-lg shadow-black/15 bg-gray flex flex-col justify-center`}
+        className={`border-r border-accent/20 border-solid h-screen w-full ease-in-out duration-500 left-0 shadow-lg shadow-black/15 bg-gray flex flex-col justify-center`}
       >
         <label
+          title="Dashboard"
           htmlFor="dashboard"
           className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
@@ -16,7 +17,7 @@ const Sidebar = () => {
             defaultChecked={true}
           />
           <svg
-            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
+            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-accent peer-hover/expand:fill-accent peer-checked/expand:text-accent peer-checked/expand:fill-accent text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
             xmlns="http://www.w3.org/2000/svg"
             width={24}
             height={24}
@@ -26,6 +27,7 @@ const Sidebar = () => {
           </svg>
         </label>
         <label
+          title="Options"
           htmlFor="options"
           className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
@@ -36,21 +38,22 @@ const Sidebar = () => {
             id="options"
           />
           <svg
-            className={`fill-none peer-hover/expand:scale-125 stroke-current peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
+            className={`fill-none peer-hover/expand:scale-125 stroke-current peer-hover/expand:text-accent peer-hover/expand:fill-accent peer-checked/expand:text-accent peer-checked/expand:fill-accent text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
             xmlns="http://www.w3.org/2000/svg"
             width={24}
             height={24}
             viewBox="0 0 24 24"
-            stroke-width="2"
+            strokeWidth="2"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
             />
           </svg>
         </label>
         <label
+          title="Progress"
           htmlFor="progress"
           className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
@@ -61,7 +64,7 @@ const Sidebar = () => {
             id="progress"
           />
           <svg
-            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] peer-checked/expand:scale-125 ease-in-out duration-300`}
+            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-accent peer-hover/expand:fill-accent peer-checked/expand:text-accent peer-checked/expand:fill-accent peer-checked/expand:scale-125 ease-in-out duration-300`}
             xmlns="http://www.w3.org/2000/svg"
             width={24}
             height={24}
@@ -71,6 +74,7 @@ const Sidebar = () => {
           </svg>
         </label>
         <label
+          title="About"
           htmlFor="about"
           className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
@@ -81,7 +85,7 @@ const Sidebar = () => {
             id="about"
           />
           <svg
-            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
+            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-accent peer-hover/expand:fill-accent peer-checked/expand:text-accent peer-checked/expand:fill-accent text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
             xmlns="http://www.w3.org/2000/svg"
             width={24}
             height={24}
@@ -92,6 +96,7 @@ const Sidebar = () => {
           </svg>
         </label>
         <label
+          title="Settings"
           htmlFor="settings"
           className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
@@ -102,7 +107,7 @@ const Sidebar = () => {
             id="settings"
           />
           <svg
-            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
+            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-accent peer-hover/expand:fill-accent peer-checked/expand:text-accent peer-checked/expand:fill-accent text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
             xmlns="http://www.w3.org/2000/svg"
             width={24}
             height={24}
