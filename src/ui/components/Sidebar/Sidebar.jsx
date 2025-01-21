@@ -26,55 +26,59 @@ const Sidebar = () => {
           </svg>
         </label>
         <label
-          htmlFor="profile"
+          htmlFor="options"
           className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
           <input
             className="hidden peer/expand"
             type="radio"
             name="path"
-            id="profile"
+            id="options"
           />
           <svg
-            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] text-2xl peer-checked/expand:scale-125 ease-in-out duration-300"
-      xmlns="http://www.w3.org/2000/svg`}
+            className={`fill-none peer-hover/expand:scale-125 stroke-current peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
+            xmlns="http://www.w3.org/2000/svg"
             width={24}
             height={24}
             viewBox="0 0 24 24"
+            stroke-width="2"
           >
-            <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z" />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
+            />
           </svg>
         </label>
         <label
-          htmlFor="messages"
+          htmlFor="progress"
           className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
           <input
             className="hidden peer/expand"
             type="radio"
             name="path"
-            id="messages"
+            id="progress"
           />
           <svg
-            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] text-2xl peer-checked/expand:scale-125 ease-in-out duration-300"
-      xmlns="http://www.w3.org/2000/svg`}
+            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] peer-checked/expand:scale-125 ease-in-out duration-300`}
+            xmlns="http://www.w3.org/2000/svg"
             width={24}
             height={24}
-            viewBox="0 0 24 24"
+            viewBox="0 0 512 512"
           >
-            <path d="M5 18v3.766l1.515-.909L11.277 18H16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h1zM4 8h12v8h-5.277L7 18.234V16H4V8z" />
-            <path d="M20 2H8c-1.103 0-2 .897-2 2h12c1.103 0 2 .897 2 2v8c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2z" />
+            <path d="M256 464a208 208 0 1 1 0-416 208 208 0 1 1 0 416zM256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM376.9 294.6c4.5-4.2 7.1-10.1 7.1-16.3c0-12.3-10-22.3-22.3-22.3L304 256l0-96c0-17.7-14.3-32-32-32l-32 0c-17.7 0-32 14.3-32 32l0 96-57.7 0C138 256 128 266 128 278.3c0 6.2 2.6 12.1 7.1 16.3l107.1 99.9c3.8 3.5 8.7 5.5 13.8 5.5s10.1-2 13.8-5.5l107.1-99.9z" />
           </svg>
         </label>
         <label
-          htmlFor="help"
+          htmlFor="about"
           className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
         >
           <input
             className="hidden peer/expand"
             type="radio"
             name="path"
-            id="help"
+            id="about"
           />
           <svg
             className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-[#F89B2A] peer-hover/expand:fill-[#F89B2A] peer-checked/expand:text-[#F89B2A] peer-checked/expand:fill-[#F89B2A] text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
