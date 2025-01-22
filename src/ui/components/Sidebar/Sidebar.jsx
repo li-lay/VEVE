@@ -36,7 +36,7 @@ const Sidebar = () => {
   return (
     <div className="flex flex-col justify-center items-center relative transition-all duration-[450ms] ease-in-out w-16">
       <article
-        className={`border-r border-accent/20 border-solid h-screen w-full ease-in-out duration-500 left-0 shadow-lg shadow-black/15 bg-gray flex flex-col justify-center`}
+        className={`border-r border-accent/20 bg-bg border-solid h-screen w-full ease-in-out duration-500 left-0 shadow-lg shadow-black/15 bg-gray flex flex-col justify-center`}
       >
         {menus.map((menu, idx) => (
           <EachMenu
