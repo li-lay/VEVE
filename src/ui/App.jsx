@@ -14,7 +14,7 @@ function App() {
       <header className="w-full h-max">
         <TitleBar />
       </header>
-      <main className="w-full h-full flex flex-row gap-6 ">
+      <main className="w-full h-full flex flex-row">
         <Sidebar />
         <Routes>
           <Route path="/" element={<Dashboard />} />
