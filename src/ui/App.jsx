@@ -1,36 +1,28 @@
-import { useEffect, useState } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
 import TitleBar from "./components/TitleBar/TitleBar";
+import Dashboard from "./pages/Dashboard";
+import Options from "./pages/Options";
+import Progress from "./pages/Progress";
+import About from "./pages/About";
+import Settings from "./pages/Settings";
+import { Routes, Route } from "react-router";
 import "./App.css";
 
 function App() {
-  const [versions, setVersions] = useState({});
-
-  useEffect(() => {
-    // Access the exposed versions object
-    const nodeVersion = window.versions.node();
-    const chromeVersion = window.versions.chrome();
-    const electronVersion = window.versions.electron();
-
-    // Set the versions in the state
-    setVersions({
-      node: nodeVersion,
-      chrome: chromeVersion,
-      electron: electronVersion,
-    });
-  }, []);
-
   return (
     <>
-      {/* <h1>Hello World!</h1>
-      <h2>Nodejs: {versions.node}</h2>
-      <h2>Chrome: {versions.chrome}</h2>
-      <h2>Electron: {versions.electron}</h2> */}
       <header className="w-full h-max">
         <TitleBar />
       </header>
       <main className="w-full h-full flex flex-row gap-6 ">
         <Sidebar />
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/options" element={<Options />} />
+          <Route path="/progress" element={<Progress />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
       </main>
     </>
   );

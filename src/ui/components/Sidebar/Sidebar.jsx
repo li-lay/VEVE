@@ -1,122 +1,51 @@
+import EachMenu from "../EachMenu";
+
 const Sidebar = () => {
+  const menus = [
+    {
+      slug: "/",
+      title: "Dashboard",
+      pathIcon:
+        "M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z",
+    },
+    {
+      slug: "/options",
+      title: "Options",
+      pathIcon:
+        "m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z",
+    },
+    {
+      slug: "/progress",
+      title: "Progress",
+      pathIcon:
+        "M3.51472 3.51472C5.76515 1.26428 8.8174 0 12 0C15.1826 0 18.2348 1.26428 20.4853 3.51472C22.7357 5.76515 24 8.8174 24 12C24 13.5759 23.6896 15.1363 23.0866 16.5922C22.4835 18.0481 21.5996 19.371 20.4853 20.4853C19.371 21.5996 18.0481 22.4835 16.5922 23.0866C15.1363 23.6896 13.5759 24 12 24C10.4241 24 8.86371 23.6896 7.4078 23.0866C5.95189 22.4835 4.62902 21.5996 3.51472 20.4853C2.40042 19.371 1.5165 18.0481 0.913445 16.5922C0.310389 15.1363 0 13.5759 0 12C5.50197e-08 8.8174 1.26428 5.76516 3.51472 3.51472ZM12 1.84615C9.30703 1.84615 6.72436 2.91593 4.82015 4.82015C2.91593 6.72436 1.84615 9.30703 1.84615 12C1.84615 13.3334 2.10879 14.6538 2.61907 15.8857C3.12935 17.1176 3.87727 18.237 4.82015 19.1799C5.76302 20.1227 6.88237 20.8707 8.11429 21.3809C9.34621 21.8912 10.6666 22.1538 12 22.1538C13.3334 22.1538 14.6538 21.8912 15.8857 21.3809C17.1176 20.8707 18.237 20.1227 19.1799 19.1799C20.1227 18.237 20.8707 17.1176 21.3809 15.8857C21.8912 14.6538 22.1538 13.3334 22.1538 12C22.1538 9.30703 21.0841 6.72436 19.1799 4.82015C17.2756 2.91593 14.693 1.84615 12 1.84615ZM12 6.15385C12.5098 6.15385 12.9231 6.56712 12.9231 7.07692V14.6946L16.2704 11.3473C16.6308 10.9868 17.2153 10.9868 17.5758 11.3473C17.9363 11.7078 17.9363 12.2922 17.5758 12.6527L12.6527 17.5758C12.2922 17.9363 11.7078 17.9363 11.3473 17.5758L6.42421 12.6527C6.06373 12.2922 6.06373 11.7078 6.42421 11.3473C6.78469 10.9868 7.36915 10.9868 7.72964 11.3473L11.0769 14.6946V7.07692C11.0769 6.56712 11.4902 6.15385 12 6.15385Z",
+    },
+    {
+      slug: "/about",
+      title: "About",
+      pathIcon:
+        "M11.953 2C6.465 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.493 2 11.953 2zM12 20c-4.411 0-8-3.589-8-8s3.567-8 7.953-8C16.391 4 20 7.589 20 12s-3.589 8-8 8zM11 7h2v7h-2zm0 8h2v2h-2z",
+    },
+    {
+      slug: "/settings",
+      title: "Settings",
+      pathIcon:
+        "M12 16c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.084 0 2 .916 2 2s-.916 2-2 2-2-.916-2-2 .916-2 2-2zm-9.155 6.136 1 1.73c.531.917 1.809 1.261 2.73.73l.529-.306A8.1 8.1 0 0 0 9 19.402V20c0 1.103.897 2 2 2h2c1.103 0 2-.897 2-2v-.598a8.132 8.132 0 0 0 1.896-1.111l.529.306c.923.53 2.198.188 2.731-.731l.999-1.729a2.001 2.001 0 0 0-.731-2.732l-.505-.292a7.718 7.718 0 0 0 0-2.224l.505-.292a2.002 2.002 0 0 0 .731-2.732l-.999-1.729c-.531-.92-1.808-1.265-2.731-.732l-.529.306A8.1 8.1 0 0 0 15 4.598V4c0-1.103-.897-2-2-2h-2c-1.103 0-2 .897-2 2v.598a8.132 8.132 0 0 0-1.896 1.111l-.529-.306c-.924-.531-2.2-.187-2.731.732l-.999 1.729a2.001 2.001 0 0 0 .731 2.732l.505.292a7.683 7.683 0 0 0 0 2.223l-.505.292a2.003 2.003 0 0 0-.731 2.733zm3.326-2.758A5.703 5.703 0 0 1 6 12c0-.462.058-.926.17-1.378a.999.999 0 0 0-.47-1.108l-1.123-.65.998-1.729 1.145.662a.997.997 0 0 0 1.188-.142 6.071 6.071 0 0 1 2.384-1.399A1 1 0 0 0 11 5.3V4h2v1.3a1 1 0 0 0 .708.956 6.083 6.083 0 0 1 2.384 1.399.999.999 0 0 0 1.188.142l1.144-.661 1 1.729-1.124.649a1 1 0 0 0-.47 1.108c.112.452.17.916.17 1.378 0 .461-.058.925-.171 1.378a1 1 0 0 0 .471 1.108l1.123.649-.998 1.729-1.145-.661a.996.996 0 0 0-1.188.142 6.071 6.071 0 0 1-2.384 1.399A1 1 0 0 0 13 18.7l.002 1.3H11v-1.3a1 1 0 0 0-.708-.956 6.083 6.083 0 0 1-2.384-1.399.992.992 0 0 0-1.188-.141l-1.144.662-1-1.729 1.124-.651a1 1 0 0 0 .471-1.108z",
+    },
+  ];
   return (
     <div className="flex flex-col justify-center items-center relative transition-all duration-[450ms] ease-in-out w-16">
       <article
         className={`border-r border-accent/20 border-solid h-screen w-full ease-in-out duration-500 left-0 shadow-lg shadow-black/15 bg-gray flex flex-col justify-center`}
       >
-        <label
-          title="Dashboard"
-          htmlFor="dashboard"
-          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
-        >
-          <input
-            className="hidden peer/expand"
-            type="radio"
-            name="path"
-            id="dashboard"
-            defaultChecked={true}
+        {menus.map((menu, idx) => (
+          <EachMenu
+            key={idx}
+            slug={menu.slug}
+            title={menu.title}
+            pathIcon={menu.pathIcon}
           />
-          <svg
-            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-accent peer-hover/expand:fill-accent peer-checked/expand:text-accent peer-checked/expand:fill-accent text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
-            xmlns="http://www.w3.org/2000/svg"
-            width={24}
-            height={24}
-            viewBox="0 0 24 24"
-          >
-            <path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z" />
-          </svg>
-        </label>
-        <label
-          title="Options"
-          htmlFor="options"
-          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
-        >
-          <input
-            className="hidden peer/expand"
-            type="radio"
-            name="path"
-            id="options"
-          />
-          <svg
-            className={`fill-none peer-hover/expand:scale-125 stroke-current peer-hover/expand:text-accent peer-hover/expand:fill-accent peer-checked/expand:text-accent peer-checked/expand:fill-accent text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
-            xmlns="http://www.w3.org/2000/svg"
-            width={24}
-            height={24}
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
-            />
-          </svg>
-        </label>
-        <label
-          title="Progress"
-          htmlFor="progress"
-          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
-        >
-          <input
-            className="hidden peer/expand"
-            type="radio"
-            name="path"
-            id="progress"
-          />
-          <svg
-            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-accent peer-hover/expand:fill-accent peer-checked/expand:text-accent peer-checked/expand:fill-accent peer-checked/expand:scale-125 ease-in-out duration-300`}
-            xmlns="http://www.w3.org/2000/svg"
-            width={24}
-            height={24}
-            viewBox="0 0 512 512"
-          >
-            <path d="M256 464a208 208 0 1 1 0-416 208 208 0 1 1 0 416zM256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM376.9 294.6c4.5-4.2 7.1-10.1 7.1-16.3c0-12.3-10-22.3-22.3-22.3L304 256l0-96c0-17.7-14.3-32-32-32l-32 0c-17.7 0-32 14.3-32 32l0 96-57.7 0C138 256 128 266 128 278.3c0 6.2 2.6 12.1 7.1 16.3l107.1 99.9c3.8 3.5 8.7 5.5 13.8 5.5s10.1-2 13.8-5.5l107.1-99.9z" />
-          </svg>
-        </label>
-        <label
-          title="About"
-          htmlFor="about"
-          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
-        >
-          <input
-            className="hidden peer/expand"
-            type="radio"
-            name="path"
-            id="about"
-          />
-          <svg
-            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-accent peer-hover/expand:fill-accent peer-checked/expand:text-accent peer-checked/expand:fill-accent text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
-            xmlns="http://www.w3.org/2000/svg"
-            width={24}
-            height={24}
-            viewBox="0 0 24 24"
-          >
-            <path d="M11.953 2C6.465 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.493 2 11.953 2zM12 20c-4.411 0-8-3.589-8-8s3.567-8 7.953-8C16.391 4 20 7.589 20 12s-3.589 8-8 8z" />
-            <path d="M11 7h2v7h-2zm0 8h2v2h-2z" />
-          </svg>
-        </label>
-        <label
-          title="Settings"
-          htmlFor="settings"
-          className="relative w-full h-16 p-4 ease-in-out duration-300 border-solid border-black/10 has-[:checked]:border group flex flex-row gap-3 items-center justify-center text-white rounded-xl"
-        >
-          <input
-            className="hidden peer/expand"
-            type="radio"
-            name="path"
-            id="settings"
-          />
-          <svg
-            className={`fill-current peer-hover/expand:scale-125 peer-hover/expand:text-accent peer-hover/expand:fill-accent peer-checked/expand:text-accent peer-checked/expand:fill-accent text-2xl peer-checked/expand:scale-125 ease-in-out duration-300`}
-            xmlns="http://www.w3.org/2000/svg"
-            width={24}
-            height={24}
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 16c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4zm0-6c1.084 0 2 .916 2 2s-.916 2-2 2-2-.916-2-2 .916-2 2-2z" />
-            <path d="m2.845 16.136 1 1.73c.531.917 1.809 1.261 2.73.73l.529-.306A8.1 8.1 0 0 0 9 19.402V20c0 1.103.897 2 2 2h2c1.103 0 2-.897 2-2v-.598a8.132 8.132 0 0 0 1.896-1.111l.529.306c.923.53 2.198.188 2.731-.731l.999-1.729a2.001 2.001 0 0 0-.731-2.732l-.505-.292a7.718 7.718 0 0 0 0-2.224l.505-.292a2.002 2.002 0 0 0 .731-2.732l-.999-1.729c-.531-.92-1.808-1.265-2.731-.732l-.529.306A8.1 8.1 0 0 0 15 4.598V4c0-1.103-.897-2-2-2h-2c-1.103 0-2 .897-2 2v.598a8.132 8.132 0 0 0-1.896 1.111l-.529-.306c-.924-.531-2.2-.187-2.731.732l-.999 1.729a2.001 2.001 0 0 0 .731 2.732l.505.292a7.683 7.683 0 0 0 0 2.223l-.505.292a2.003 2.003 0 0 0-.731 2.733zm3.326-2.758A5.703 5.703 0 0 1 6 12c0-.462.058-.926.17-1.378a.999.999 0 0 0-.47-1.108l-1.123-.65.998-1.729 1.145.662a.997.997 0 0 0 1.188-.142 6.071 6.071 0 0 1 2.384-1.399A1 1 0 0 0 11 5.3V4h2v1.3a1 1 0 0 0 .708.956 6.083 6.083 0 0 1 2.384 1.399.999.999 0 0 0 1.188.142l1.144-.661 1 1.729-1.124.649a1 1 0 0 0-.47 1.108c.112.452.17.916.17 1.378 0 .461-.058.925-.171 1.378a1 1 0 0 0 .471 1.108l1.123.649-.998 1.729-1.145-.661a.996.996 0 0 0-1.188.142 6.071 6.071 0 0 1-2.384 1.399A1 1 0 0 0 13 18.7l.002 1.3H11v-1.3a1 1 0 0 0-.708-.956 6.083 6.083 0 0 1-2.384-1.399.992.992 0 0 0-1.188-.141l-1.144.662-1-1.729 1.124-.651a1 1 0 0 0 .471-1.108z" />
-          </svg>
-        </label>
+        ))}
       </article>
     </div>
   );
