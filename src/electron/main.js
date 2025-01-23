@@ -51,6 +51,11 @@ const createWindow = () => {
   ipcMain.on("close-window", () => {
     win.close();
   });
+
+  // minimize window
+  ipcMain.on("minimize-window", () => {
+    win.minimize();
+  });
 };
 
 app.whenReady().then(() => {

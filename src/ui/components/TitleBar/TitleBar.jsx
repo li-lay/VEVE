@@ -1,5 +1,7 @@
 import VEVELOGO from "../../assets/VEVELOGO.svg";
 import CloseIcon from "../icons/CloseIcon";
+import HideIcon from "../icons/HideIcon";
+import TitleBarButton from "../TitleBarButton";
 
 const TitleBar = () => {
   return (
@@ -10,13 +12,15 @@ const TitleBar = () => {
         <h1 className="text-black font-semibold ">VEVE</h1>
       </div>
       {/* Buttons */}
-      <div className="w-full col-[1/1] row-[1/1] flex justify-end gap-1 items-center px-4">
-        <button
+      <div className="w-full col-[1/1] row-[1/1] flex justify-end gap-2 items-center px-4">
+        <TitleBarButton
+          onClick={() => window.versions.minimizeWin()}
+          icon={<HideIcon className="no-drag text-black size-[22px]" />}
+        />
+        <TitleBarButton
           onClick={() => window.versions.closeWin()}
-          className="cursor-pointer"
-        >
-          <CloseIcon className="no-drag text-black size-[22px]" />
-        </button>
+          icon={<CloseIcon className="no-drag text-black size-[22px]" />}
+        />
       </div>
     </div>
   );
