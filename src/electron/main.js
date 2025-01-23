@@ -51,6 +51,41 @@ const createWindow = () => {
   ipcMain.on("close-window", () => {
     win.close();
   });
+
+  // minimize window
+  ipcMain.on("minimize-window", () => {
+    win.minimize();
+  });
+
+  // restore or maximize window
+  ipcMain.on("restore-maximize-window", () => {
+    if (win.isMaximized()) {
+      win.restore();
+    } else {
+      win.maximize();
+    }
+  });
+
+  // check if window is maximized
+  ipcMain.on("is-win-maximized", () => {
+    return win.isMaximized();
+  });
+
+  win.on("maximize", () => {
+    win.webContents.send("window-state", "maximized");
+  });
+
+  win.on("unmaximize", () => {
+    win.webContents.send("window-state", "restored");
+  });
+
+  win.on("minimize", () => {
+    win.webContents.send("window-state", "minimized");
+  });
+
+  win.on("restore", () => {
+    win.webContents.send("window-state", "restored");
+  });
 };
 
 app.whenReady().then(() => {

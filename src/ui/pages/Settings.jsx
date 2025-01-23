@@ -1,12 +1,12 @@
 import Wrapper from "../components/Wrapper";
-import VEVELOGO from "../assets/VEVELOGO.png";
+import VEVELOGO from "../assets/VEVELOGO.svg";
 
 const Settings = () => {
   return (
     <Wrapper>
       <div className="fixed left-0 right-0 flex flex-col items-center justify-center gap-2">
         <div className="flex items-center gap-2">
-          <img className="size-20" src={VEVELOGO} />
+          <img className="size-20" src={VEVELOGO} alt="VEVE Logo" />
           <h1 className="text-3xl font-bold text-white">VEVE</h1>
         </div>
       </div>
