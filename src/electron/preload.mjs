@@ -6,6 +6,8 @@ contextBridge.exposeInMainWorld("versions", {
   electron: () => process.versions.electron,
   closeWin: () => ipcRenderer.send("close-window"),
   minimizeWin: () => ipcRenderer.send("minimize-window"),
+  RestoreORMaximizeWin: () => ipcRenderer.send("restore-maximize-window"),
+  onWindowStateChange: (callback) => ipcRenderer.on("window-state", callback),
 });
 
 console.log("Hello Preload!");
