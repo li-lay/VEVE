@@ -5,7 +5,7 @@ import packageJson from "../../../package.json";
 const Settings = () => {
   return (
     <Wrapper>
-      <div className="fixed left-0 right-0 flex flex-col items-center justify-center gap-2 ml-16">
+      <div className="flex flex-col items-center gap-2 ">
         <div className="flex items-center gap-2 mt-6 w-full justify-center">
           <img
             className="w-[10vw] h-[10vw] min-w-16 min-h-16 max-w-32 max-h-32"
@@ -14,7 +14,7 @@ const Settings = () => {
           />
           <h1 className="text-[4vw] md:text-3xl font-bold text-white">VEVE</h1>
         </div>
-        <div className="w-full px-4 mt-6 space-y-6 mx-auto">
+        <div className="w-full px-4 mt-6 mb-6 space-y-6 mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[90vw] mx-auto">
             <div className="p-4 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 space-y-3">
               <h2 className="text-xl font-bold text-white mb-2">Appearance</h2>
