@@ -3,7 +3,6 @@ import TitleBar from "./components/TitleBar/TitleBar";
 import Dashboard from "./pages/Dashboard";
 import Options from "./pages/Options";
 import Progress from "./pages/Progress";
-import About from "./pages/About";
 import Settings from "./pages/Settings";
 import { Routes, Route } from "react-router";
 import "./App.css";
@@ -20,7 +19,6 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/options" element={<Options />} />
           <Route path="/progress" element={<Progress />} />
-          <Route path="/about" element={<About />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </main>
