@@ -10,12 +10,12 @@ const TitleBar = () => {
   const [isMaximized, setIsMaximized] = useState("restored");
 
   useEffect(() => {
-    window.versions.onWindowStateChange((event, state) => {
+    window.electronExpose.onWindowStateChange((event, state) => {
       setIsMaximized(state);
     });
 
     return () => {
-      window.versions.onWindowStateChange(() => {});
+      window.electronExpose.onWindowStateChange(() => {});
     };
   }, []);
 
@@ -29,22 +29,22 @@ const TitleBar = () => {
       {/* Buttons */}
       <div className="w-full col-[1/1] row-[1/1] flex justify-end gap-4 items-center px-4">
         <TitleBarButton
-          onClick={() => window.versions.minimizeWin()}
+          onClick={() => window.electronExpose.minimizeWin()}
           icon={<MinimizeIcon className="no-drag text-black size-3.5" />}
         />
         {isMaximized === "restored" ? (
           <TitleBarButton
-            onClick={() => window.versions.RestoreORMaximizeWin()}
+            onClick={() => window.electronExpose.RestoreORMaximizeWin()}
             icon={<MaximizeIcon className="no-drag text-black size-3.5" />}
           />
         ) : (
           <TitleBarButton
-            onClick={() => window.versions.RestoreORMaximizeWin()}
+            onClick={() => window.electronExpose.RestoreORMaximizeWin()}
             icon={<RestoreIcon className="no-drag text-black size-3.5" />}
           />
         )}
         <TitleBarButton
-          onClick={() => window.versions.closeWin()}
+          onClick={() => window.electronExpose.closeWin()}
           icon={<CloseIcon className="no-drag text-black size-3.5" />}
         />
       </div>
