@@ -26,7 +26,7 @@ const Settings = () => {
           />
           <h1 className="text-[4vw] md:text-3xl font-bold text-white">VEVE</h1>
         </div>
-        <div className="w-full px-4 mt-6 mb-6 space-y-6 mx-auto">
+        <div className="w-full px-4 my-6 space-y-4 mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[90vw] mx-auto">
             <div className="p-4 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 space-y-3">
               <h2 className="text-xl font-bold text-white mb-2">Appearance</h2>
@@ -36,7 +36,7 @@ const Settings = () => {
                   <input
                     type="checkbox"
                     id="dark-mode"
-                    className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-gray-300 appearance-none cursor-pointer"
+                    className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-gray-300 appearance-none cursor-pointer "
                   />
                   <label
                     htmlFor="dark-mode"
@@ -72,7 +72,7 @@ const Settings = () => {
               </div>
             </div>
           </div>
-          <div className="p-6 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20">
+          <div className="max-w-[90vw] mx-auto p-6 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20">
             <h2 className="text-xl font-bold text-white mb-4">About</h2>
             <div className="space-y-2 text-white/80">
               <p>Version: {packageJson.version}</p>
