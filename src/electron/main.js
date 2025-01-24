@@ -102,7 +102,7 @@ app.whenReady().then(async () => {
     const gpuInfo = await detectGPU();
     console.log("GPU Detection Results:", gpuInfo);
     // Send to renderer process
-    win.webContents.send("gpu-detection", gpuInfo);
+    win.webContents.send("getGPUInfo", gpuInfo);
   } catch (error) {
     console.error("Failed to detect GPU:", error);
     win.webContents.send("gpu-detection-error", error.message);
@@ -153,7 +153,8 @@ async function detectGPU() {
       console.log("!!!No GPU detected, run on CPU Mode!!!".rainbow);
     }
 
-    return { isNVIDIA, isAMD, isIntel };
+    const model = gpuInfo.controllers[0]?.model || "Unknown";
+    return { isNVIDIA, isAMD, isIntel, model };
   } catch (error) {
     console.error("GPU detection failed:", error);
     return { isNVIDIA: false, isAMD: false, isIntel: false };
