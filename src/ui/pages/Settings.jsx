@@ -1,8 +1,20 @@
+import { useEffect } from "react";
 import Wrapper from "../components/Wrapper";
 import VEVELOGO from "../assets/VEVELOGO.svg";
 import packageJson from "../../../package.json";
 
 const Settings = () => {
+  useEffect(() => {
+    const handleContextMenu = (e) => {
+      e.preventDefault();
+    };
+
+    document.addEventListener("contextmenu", handleContextMenu);
+
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, []);
   return (
     <Wrapper>
       <div className="flex flex-col items-center gap-2 ">
