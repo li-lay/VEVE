@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import dotenv from "dotenv";
 import si from "systeminformation";
+import colors from "colors";
 
 // Get the environment variables
 dotenv.config();
@@ -134,13 +135,22 @@ async function detectGPU() {
     );
 
     if (isNVIDIA) {
-      console.log("NVIDIA GPU detected!!!");
+      console.log(
+        "NVIDIA GPU detected!!!\n".green + "Hardware:".yellow,
+        gpuInfo.controllers[0].model.toString().red
+      );
     } else if (isAMD) {
-      console.log("AMD GPU detected!!!");
+      console.log(
+        "AMD GPU detected!!!\n".green + "Hardware:".yellow,
+        gpuInfo.controllers[0].model.toString().red
+      );
     } else if (isIntel) {
-      console.log("Intel GPU detected!!!");
+      console.log(
+        "Intel GPU detected!!!\n".green + "Hardware:".yellow,
+        gpuInfo.controllers[0].model.toString().red
+      );
     } else {
-      console.log("!!!No GPU detected, run on CPU Mode!!!");
+      console.log("!!!No GPU detected, run on CPU Mode!!!".rainbow);
     }
 
     return { isNVIDIA, isAMD, isIntel };
