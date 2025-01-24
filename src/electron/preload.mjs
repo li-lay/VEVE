@@ -11,7 +11,8 @@ contextBridge.exposeInMainWorld("electronExpose", {
   minimizeWin: () => ipcRenderer.send("minimize-window"),
   RestoreORMaximizeWin: () => ipcRenderer.send("restore-maximize-window"),
   onWindowStateChange: (callback) => ipcRenderer.on("window-state", callback),
-  getGPUInfo: (callback) => ipcRenderer.on("gpu-detection", callback),
+  askGPUInfo: () => ipcRenderer.send("get-gpu-info"),
+  getGPUInfo: (callback) => ipcRenderer.on("gpu-info", callback),
 });
 
 console.log("Hello Preload!");
