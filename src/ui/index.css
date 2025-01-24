@@ -33,8 +33,12 @@ svg,
 .draggable {
   -webkit-app-region: drag;
 }
+
+a,
 .no-drag {
   -webkit-app-region: no-drag;
+  user-drag: none;
+  -webkit-user-drag: none;
 }
 
 /* Custom scrollbar styles */
