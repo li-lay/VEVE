@@ -36,3 +36,22 @@ svg,
 .no-drag {
   -webkit-app-region: no-drag;
 }
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #32302f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #504945;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #665c54;
+}
