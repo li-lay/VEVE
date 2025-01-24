@@ -1,8 +1,16 @@
 import { NavLink } from "react-router";
 
 const EachMenu = ({ slug, title, pathIcon }) => {
+  const preventNewInstance = (e) => {
+    if (e.ctrlKey || e.shiftKey || e.metaKey) {
+      e.preventDefault();
+      window.open(slug, "_self");
+    }
+  };
+
   return (
     <NavLink
+      onClick={preventNewInstance}
       to={slug}
       title={title}
       className={({ isActive }) =>
