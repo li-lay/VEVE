@@ -13,6 +13,8 @@ contextBridge.exposeInMainWorld("electronExpose", {
   onWindowStateChange: (callback) => ipcRenderer.on("window-state", callback),
   askGPUInfo: () => ipcRenderer.send("get-gpu-info"),
   getGPUInfo: (callback) => ipcRenderer.on("gpu-info", callback),
+  askSystemInfo: () => ipcRenderer.send("get-system-info"),
+  getSystemInfo: (callback) => ipcRenderer.on("system-info", callback),
 });
 
 console.log("Hello Preload!");

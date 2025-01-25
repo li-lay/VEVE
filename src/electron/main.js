@@ -3,8 +3,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import dotenv from "dotenv";
-import si from "systeminformation";
+import si, { osInfo } from "systeminformation";
 import colors from "colors";
+import { arch } from "os";
 
 // Get the environment variables
 dotenv.config();
@@ -84,6 +85,18 @@ const createWindow = () => {
     }
   });
 
+  // handle get system info
+  let cacheSystemInfo = null;
+  ipcMain.on("get-system-info", async () => {
+    if (cacheSystemInfo) {
+      win.webContents.send("system-info", cacheSystemInfo);
+    } else {
+      const systemInfo = await detectOS();
+      cacheSystemInfo = systemInfo;
+      win.webContents.send("system-info", systemInfo);
+    }
+  });
+
   // get window states
   win.on("maximize", () => {
     win.webContents.send("window-state", "maximized");
@@ -148,5 +161,34 @@ async function detectGPU() {
   } catch (error) {
     console.error("GPU detection failed:", error);
     return { model: `Error - ${error}` };
+  }
+}
+// Detect GPU with platform-specific handling
+async function detectOS() {
+  try {
+    const systemInfo = await si.osInfo();
+    const osPlatform = systemInfo.platform;
+    const systemArch = systemInfo.arch;
+
+    if (osPlatform.toLowerCase().includes("window")) {
+      console.log(
+        "Window System detected!!!\n".green + "Platform:".yellow,
+        osPlatform.red + "\n" + "Architecture:".yellow,
+        systemArch.red
+      );
+    } else if (osPlatform.toLowerCase().includes("linux")) {
+      console.log(
+        "Linux System detected!!!\n".green + "Platform:".yellow,
+        osPlatform.red + "\n" + "Architecture:".yellow,
+        systemArch.red
+      );
+    } else {
+      console.log("!!!Unknown Platform, WTF!!!".rainbow);
+    }
+
+    return { platform: osPlatform || "Unknown", arch: systemArch || "Unknown" };
+  } catch (error) {
+    console.error("SystemOS detection failed:", error);
+    return { platform: `Error - ${error}` };
   }
 }
