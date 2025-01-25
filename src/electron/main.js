@@ -117,9 +117,7 @@ const createWindow = () => {
   return win;
 };
 
-app.whenReady().then(async () => {
-  const win = createWindow();
-});
+app.whenReady().then(async () => createWindow());
 
 // Unregister all shortcuts when the app quits
 app.on("will-quit", () => {
