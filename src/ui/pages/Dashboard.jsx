@@ -3,6 +3,7 @@ import Wrapper from "../components/Wrapper";
 
 const Dashboard = () => {
   const [GPUInfo, setGPUInfo] = useState({});
+  const [systemInfo, setSystemInfo] = useState({});
 
   useEffect(() => {
     electronExpose.askGPUInfo();
@@ -10,8 +11,14 @@ const Dashboard = () => {
       setGPUInfo(info);
     });
 
+    electronExpose.askSystemInfo();
+    electronExpose.getSystemInfo((event, info) => {
+      setSystemInfo(info);
+    });
+
     return () => {
       setGPUInfo({});
+      setSystemInfo({});
     };
   }, []);
 
@@ -29,6 +36,20 @@ const Dashboard = () => {
               <span className="text-white">Model: </span>
               {GPUInfo.model && GPUInfo.model !== "Unknown" ? (
                 <span className="text-accent">{GPUInfo.model}</span>
+              ) : (
+                <span className="text-accent">loading...</span>
+              )}
+            </div>
+          </div>
+          <div className="w-full md:w-max p-4 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 space-y-3">
+            <h2 className="text-xl font-bold text-white mb-2">System</h2>
+            <div className="flex items-center justify-between gap-2  p-2 hover:bg-white/5 rounded-lg transition-colors">
+              <span className="text-white">OS: </span>
+              {systemInfo.platform ? (
+                <span className="text-accent">
+                  {/* {systemInfo.os} {systemInfo.arch} */}
+                  {systemInfo.platform} {systemInfo.arch}
+                </span>
               ) : (
                 <span className="text-accent">loading...</span>
               )}
