@@ -14,7 +14,7 @@ const EachMenu = ({ slug, title, pathIcon }) => {
       to={slug}
       title={title}
       className={({ isActive }) =>
-        `group w-full h-16 p-4 grid place-items-center hover:text-accent ${
+        `group w-full no-drag h-16 p-4 grid place-items-center hover:text-accent ${
           isActive ? "text-accent" : "text-white"
         }`
       }

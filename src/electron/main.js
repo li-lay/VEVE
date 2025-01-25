@@ -71,6 +71,18 @@ const createWindow = () => {
     }
   });
 
+  // handle get GPU info with caches
+  let cacheGPUInfo = null;
+  ipcMain.on("get-gpu-info", async () => {
+    if (cacheGPUInfo) {
+      win.webContents.send("gpu-info", cacheGPUInfo);
+    } else {
+      const gpuInfo = await detectGPU();
+      cacheGPUInfo = gpuInfo;
+      win.webContents.send("gpu-info", gpuInfo);
+    }
+  });
+
   // check if window is maximized
   ipcMain.on("is-win-maximized", () => {
     return win.isMaximized();
@@ -97,16 +109,6 @@ const createWindow = () => {
 
 app.whenReady().then(async () => {
   const win = createWindow();
-
-  try {
-    const gpuInfo = await detectGPU();
-    console.log("GPU Detection Results:", gpuInfo);
-    // Send to renderer process
-    win.webContents.send("getGPUInfo", gpuInfo);
-  } catch (error) {
-    console.error("Failed to detect GPU:", error);
-    win.webContents.send("gpu-detection-error", error.message);
-  }
 });
 
 // Unregister all shortcuts when the app quits
