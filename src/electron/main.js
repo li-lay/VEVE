@@ -123,39 +123,30 @@ app.on("window-all-closed", () => {
 async function detectGPU() {
   try {
     const gpuInfo = await si.graphics();
-    const isNVIDIA = gpuInfo.controllers.some((c) =>
-      c.vendor.toLowerCase().includes("nvidia")
-    );
-    const isAMD = gpuInfo.controllers.some((c) =>
-      c.vendor.toLowerCase().includes("amd")
-    );
-    const isIntel = gpuInfo.controllers.some((c) =>
-      c.vendor.toLowerCase().includes("intel")
-    );
+    const { model } = gpuInfo.controllers[0];
 
-    if (isNVIDIA) {
+    if (model.toLowerCase().includes("nvidia")) {
       console.log(
         "NVIDIA GPU detected!!!\n".green + "Hardware:".yellow,
-        gpuInfo.controllers[0].model.toString().red
+        model.red
       );
-    } else if (isAMD) {
+    } else if (model.toLowerCase().includes("amd")) {
       console.log(
         "AMD GPU detected!!!\n".green + "Hardware:".yellow,
-        gpuInfo.controllers[0].model.toString().red
+        model.red
       );
-    } else if (isIntel) {
+    } else if (model.toLowerCase().includes("intel")) {
       console.log(
         "Intel GPU detected!!!\n".green + "Hardware:".yellow,
-        gpuInfo.controllers[0].model.toString().red
+        model.red
       );
     } else {
       console.log("!!!No GPU detected, run on CPU Mode!!!".rainbow);
     }
 
-    const model = gpuInfo.controllers[0]?.model || "Unknown";
-    return { isNVIDIA, isAMD, isIntel, model };
+    return { model: model || "Unknown" };
   } catch (error) {
     console.error("GPU detection failed:", error);
-    return { isNVIDIA: false, isAMD: false, isIntel: false };
+    return { model: `Error - ${error}` };
   }
 }
