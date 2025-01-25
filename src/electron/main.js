@@ -9,6 +9,9 @@ import colors from "colors";
 // Get the environment variables
 dotenv.config();
 
+// Set current app mode - "development" | "production"
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
+
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -32,10 +35,8 @@ const createWindow = () => {
     },
   });
 
-  // ===== HOT RELOADING =====
-  // create VITE_DEV_MODE in .env for development mode
-  // delete/comment out the VITE_DEV_MODE when building binaries
-  if (process.env.VITE_DEV_MODE) {
+  // HOT RELOADING
+  if (process.env.NODE_ENV !== "production") {
     win.loadURL("http://localhost:5173");
 
     // Toggling Devtools using F11 shortcut
@@ -83,11 +84,7 @@ const createWindow = () => {
     }
   });
 
-  // check if window is maximized
-  ipcMain.on("is-win-maximized", () => {
-    return win.isMaximized();
-  });
-
+  // get window states
   win.on("maximize", () => {
     win.webContents.send("window-state", "maximized");
   });
@@ -126,39 +123,30 @@ app.on("window-all-closed", () => {
 async function detectGPU() {
   try {
     const gpuInfo = await si.graphics();
-    const isNVIDIA = gpuInfo.controllers.some((c) =>
-      c.vendor.toLowerCase().includes("nvidia")
-    );
-    const isAMD = gpuInfo.controllers.some((c) =>
-      c.vendor.toLowerCase().includes("amd")
-    );
-    const isIntel = gpuInfo.controllers.some((c) =>
-      c.vendor.toLowerCase().includes("intel")
-    );
+    const { model } = gpuInfo.controllers[0];
 
-    if (isNVIDIA) {
+    if (model.toLowerCase().includes("nvidia")) {
       console.log(
         "NVIDIA GPU detected!!!\n".green + "Hardware:".yellow,
-        gpuInfo.controllers[0].model.toString().red
+        model.red
       );
-    } else if (isAMD) {
+    } else if (model.toLowerCase().includes("amd")) {
       console.log(
         "AMD GPU detected!!!\n".green + "Hardware:".yellow,
-        gpuInfo.controllers[0].model.toString().red
+        model.red
       );
-    } else if (isIntel) {
+    } else if (model.toLowerCase().includes("intel")) {
       console.log(
         "Intel GPU detected!!!\n".green + "Hardware:".yellow,
-        gpuInfo.controllers[0].model.toString().red
+        model.red
       );
     } else {
       console.log("!!!No GPU detected, run on CPU Mode!!!".rainbow);
     }
 
-    const model = gpuInfo.controllers[0]?.model || "Unknown";
-    return { isNVIDIA, isAMD, isIntel, model };
+    return { model: model || "Unknown" };
   } catch (error) {
     console.error("GPU detection failed:", error);
-    return { isNVIDIA: false, isAMD: false, isIntel: false };
+    return { model: `Error - ${error}` };
   }
 }

@@ -25,7 +25,6 @@ npm install
 Start the development server:
 
 ```bash
-echo "VITE_DEV_MODE=true" >> .env
 npm run dev
 ```
 
