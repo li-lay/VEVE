@@ -136,19 +136,19 @@ app.on("window-all-closed", () => {
 async function detectGPU() {
   try {
     const gpuInfo = await si.graphics();
-    const { model } = gpuInfo.controllers[0];
+    const { model, vendor } = gpuInfo.controllers[0];
 
-    if (model.toLowerCase().includes("nvidia")) {
+    if (vendor.toLowerCase().includes("nvidia")) {
       console.log(
         "NVIDIA GPU detected!!!\n".green + "Hardware:".yellow,
         model.red
       );
-    } else if (model.toLowerCase().includes("amd")) {
+    } else if (vendor.toLowerCase().includes("amd")) {
       console.log(
         "AMD GPU detected!!!\n".green + "Hardware:".yellow,
         model.red
       );
-    } else if (model.toLowerCase().includes("intel")) {
+    } else if (vendor.toLowerCase().includes("intel")) {
       console.log(
         "Intel GPU detected!!!\n".green + "Hardware:".yellow,
         model.red
