@@ -83,11 +83,7 @@ const createWindow = () => {
     }
   });
 
-  // check if window is maximized
-  ipcMain.on("is-win-maximized", () => {
-    return win.isMaximized();
-  });
-
+  // get window states
   win.on("maximize", () => {
     win.webContents.send("window-state", "maximized");
   });
