@@ -169,24 +169,29 @@ async function detectOS() {
     const systemInfo = await si.osInfo();
     const osPlatform = systemInfo.platform;
     const systemArch = systemInfo.arch;
+    const osName = systemInfo.distro;
 
     if (osPlatform.toLowerCase().includes("window")) {
       console.log(
-        "Window System detected!!!\n".green + "Platform:".yellow,
-        osPlatform.red + "\n" + "Architecture:".yellow,
+        "Window System detected!!!\n".green + "OS:".yellow,
+        osName.red + "\n" + "Architecture:".yellow,
         systemArch.red
       );
     } else if (osPlatform.toLowerCase().includes("linux")) {
       console.log(
-        "Linux System detected!!!\n".green + "Platform:".yellow,
-        osPlatform.red + "\n" + "Architecture:".yellow,
+        "Linux System detected!!!\n".green + "OS:".yellow,
+        osName.red + "\n" + "Architecture:".yellow,
         systemArch.red
       );
     } else {
       console.log("!!!Unknown Platform, WTF!!!".rainbow);
     }
 
-    return { platform: osPlatform || "Unknown", arch: systemArch || "Unknown" };
+    return {
+      platform: osPlatform || "Unknown",
+      arch: systemArch || "Unknown",
+      distro: osName || "Unknown",
+    };
   } catch (error) {
     console.error("SystemOS detection failed:", error);
     return { platform: `Error - ${error}` };
