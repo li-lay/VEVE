@@ -9,6 +9,9 @@ import colors from "colors";
 // Get the environment variables
 dotenv.config();
 
+// Set current app mode - "development" | "production"
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
+
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -32,10 +35,8 @@ const createWindow = () => {
     },
   });
 
-  // ===== HOT RELOADING =====
-  // create VITE_DEV_MODE in .env for development mode
-  // delete/comment out the VITE_DEV_MODE when building binaries
-  if (process.env.VITE_DEV_MODE) {
+  // HOT RELOADING
+  if (process.env.NODE_ENV !== "production") {
     win.loadURL("http://localhost:5173");
 
     // Toggling Devtools using F11 shortcut
