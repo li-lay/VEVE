@@ -1,4 +1,6 @@
-import { ipcMain, globalShortcut, dialog } from "electron";
+import { ipcMain, globalShortcut, dialog, app } from "electron";
+import fs from "fs";
+import path from "path";
 import { detectGPU, detectOS } from "./detects.mjs";
 
 export const setupIPCListeners = (win) => {
@@ -9,12 +11,31 @@ export const setupIPCListeners = (win) => {
   );
   ipcMain.on("get-gpu-info", handleCachedInfo(win, "gpu-info", detectGPU));
   ipcMain.on("get-system-info", handleCachedInfo(win, "system-info", detectOS));
+  const getConfigPath = () => path.join(app.getPath("userData"), "config.json");
+
   ipcMain.on("open-folder", async (event) => {
     const result = await dialog.showOpenDialog({
       properties: ["openDirectory"],
     });
     if (!result.canceled && result.filePaths.length > 0) {
-      event.sender.send("folder-selected", result.filePaths[0]);
+      const selectedPath = result.filePaths[0];
+      // Save the selected path
+      fs.writeFileSync(
+        getConfigPath(),
+        JSON.stringify({ selectedFolder: selectedPath })
+      );
+      event.sender.send("folder-selected", selectedPath);
+    }
+  });
+
+  ipcMain.on("get-saved-folder", (event) => {
+    try {
+      const config = JSON.parse(fs.readFileSync(getConfigPath()));
+      if (config.selectedFolder) {
+        event.sender.send("folder-selected", config.selectedFolder);
+      }
+    } catch (err) {
+      console.log(err);
     }
   });
 };

@@ -16,6 +16,7 @@ contextBridge.exposeInMainWorld("electronExpose", {
   askSystemInfo: () => ipcRenderer.send("get-system-info"),
   getSystemInfo: (callback) => ipcRenderer.on("system-info", callback),
   openFolder: () => ipcRenderer.send("open-folder"),
+  getSavedFolder: () => ipcRenderer.send("get-saved-folder"),
   onFolderSelected: (callback) => ipcRenderer.on("folder-selected", callback),
 });
 

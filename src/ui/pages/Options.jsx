@@ -7,9 +7,18 @@ const Options = () => {
   const [selectedFolder, setSelectedFolder] = useState("");
 
   useEffect(() => {
-    window.electronExpose.onFolderSelected((event, path) => {
+    // Get saved folder when component mounts
+    window.electronExpose.getSavedFolder();
+
+    const handleFolderSelected = (event, path) => {
       setSelectedFolder(path);
-    });
+    };
+
+    window.electronExpose.onFolderSelected(handleFolderSelected);
+
+    return () => {
+      window.electronExpose.onFolderSelected(handleFolderSelected);
+    };
   }, []);
 
   return (
