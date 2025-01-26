@@ -31,28 +31,26 @@ const Dashboard = () => {
         <div className="w-full px-4 my-6 space-y-4 mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[90vw] mx-auto"></div>
           <div className="w-full md:w-max p-4 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 space-y-3">
-            <h2 className="text-xl font-bold text-white mb-2">GPU</h2>
-            <div className="flex items-center justify-between gap-2  p-2 hover:bg-white/5 rounded-lg transition-colors">
-              <span className="text-white">Model: </span>
-              {GPUInfo.model && GPUInfo.model !== "Unknown" ? (
-                <span className="text-accent">{GPUInfo.model}</span>
-              ) : (
-                <span className="text-accent">loading...</span>
-              )}
-            </div>
-          </div>
-          <div className="w-full md:w-max p-4 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 space-y-3">
             <h2 className="text-xl font-bold text-white mb-2">System</h2>
-            <div className="flex items-center justify-between gap-2  p-2 hover:bg-white/5 rounded-lg transition-colors">
-              <span className="text-white">OS: </span>
-              {systemInfo.platform ? (
-                <span className="text-accent">
-                  {/* {systemInfo.os} {systemInfo.arch} */}
-                  {systemInfo.platform} {systemInfo.arch}
-                </span>
-              ) : (
-                <span className="text-accent">loading...</span>
-              )}
+            <div className="space-y-2">
+              <div className="p-2 hover:bg-white/5 rounded-lg transition-colors text-left">
+                <span className="text-white">OS: </span>
+                {systemInfo.platform ? (
+                  <span className="text-accent">
+                    {systemInfo.distro} {systemInfo.arch}
+                  </span>
+                ) : (
+                  <span className="text-accent">loading...</span>
+                )}
+              </div>
+              <div className="p-2 hover:bg-white/5 rounded-lg transition-colors text-left">
+                <span className="text-white">GPU: </span>
+                {GPUInfo.model && GPUInfo.model !== "Unknown" ? (
+                  <span className="text-accent">{GPUInfo.model}</span>
+                ) : (
+                  <span className="text-accent">loading...</span>
+                )}
+              </div>
             </div>
           </div>
         </div>
