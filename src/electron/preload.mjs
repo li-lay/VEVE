@@ -16,6 +16,7 @@ contextBridge.exposeInMainWorld("electronExpose", {
   askSystemInfo: () => ipcRenderer.send("get-system-info"),
   getSystemInfo: (callback) => ipcRenderer.on("system-info", callback),
   openFolder: () => ipcRenderer.send("open-folder"),
+  onFolderSelected: (callback) => ipcRenderer.on("folder-selected", callback),
 });
 
 console.log("Hello Preload!");

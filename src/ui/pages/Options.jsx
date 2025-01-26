@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Wrapper from "../components/Wrapper";
 
 const Options = () => {
   const [speed, setSpeed] = useState(1);
   const [frameRate, setFrameRate] = useState(30);
   const [selectedFolder, setSelectedFolder] = useState("");
+
+  useEffect(() => {
+    window.electronExpose.onFolderSelected((event, path) => {
+      setSelectedFolder(path);
+    });
+  }, []);
 
   return (
     <Wrapper>
@@ -18,17 +24,14 @@ const Options = () => {
                 <button
                   onClick={async (e) => {
                     e.preventDefault();
-                    const path = await electronExpose.openFolder();
-                    setSelectedFolder(path);
+                    electronExpose.openFolder();
                   }}
                   className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors"
                 >
                   Browse
                 </button>
                 <div className="text-sm text-white/60 bg-white/10 px-4 py-2 rounded-lg truncate flex-1">
-                  {selectedFolder
-                    ? `Path: ${selectedFolder}`
-                    : "No folder selected"}
+                  {selectedFolder ? `${selectedFolder}` : "No folder selected"}
                 </div>
               </div>
             </div>

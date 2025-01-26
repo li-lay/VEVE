@@ -9,11 +9,13 @@ export const setupIPCListeners = (win) => {
   );
   ipcMain.on("get-gpu-info", handleCachedInfo(win, "gpu-info", detectGPU));
   ipcMain.on("get-system-info", handleCachedInfo(win, "system-info", detectOS));
-  ipcMain.on("open-folder", async () => {
-    const selectedFolder = await dialog.showOpenDialog({
+  ipcMain.on("open-folder", async (event) => {
+    const result = await dialog.showOpenDialog({
       properties: ["openDirectory"],
     });
-    console.log(selectedFolder);
+    if (!result.canceled && result.filePaths.length > 0) {
+      event.sender.send("folder-selected", result.filePaths[0]);
+    }
   });
 };
 
