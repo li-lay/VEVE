@@ -99,9 +99,3 @@ npm run lint
 3. Commit your changes
 4. Push to the branch
 5. Create a pull request
-
-Please ensure your code follows the project's linting rules and includes appropriate tests.
-
-```
-
-```
