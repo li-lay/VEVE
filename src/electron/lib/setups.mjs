@@ -1,4 +1,4 @@
-import { ipcMain, globalShortcut } from "electron";
+import { ipcMain, globalShortcut, dialog } from "electron";
 import { detectGPU, detectOS } from "./detects.mjs";
 
 export const setupIPCListeners = (win) => {
@@ -9,6 +9,12 @@ export const setupIPCListeners = (win) => {
   );
   ipcMain.on("get-gpu-info", handleCachedInfo(win, "gpu-info", detectGPU));
   ipcMain.on("get-system-info", handleCachedInfo(win, "system-info", detectOS));
+  ipcMain.on("open-folder", async () => {
+    const selectedFolder = await dialog.showOpenDialog({
+      properties: ["openDirectory"],
+    });
+    console.log(selectedFolder);
+  });
 };
 
 export const setupWindowEvents = (win) => {
@@ -36,7 +42,7 @@ export const setupDevToolsShortcut = (win) => {
 
 const handleCachedInfo = (win, cacheKey, getInfo) => {
   /**
-   * @param win: BrowerWindow - the channel name for preload
+   * @param win: BrowerWindow - the BrowserWindow
    * @param cacheKey: string - the channel name for preload
    * @param getInfo: Promise<void> - the function to get the info
    * @return Promise<void> - the function that cached info
