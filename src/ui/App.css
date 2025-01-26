@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Animation classes */
+.slide-right {
+  animation: slideRight 0.4s ease-in-out forwards;
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Route transition container */
+.route-container {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+.route-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.route-wrapper.outgoing {
+  z-index: 1;
+}

@@ -14,7 +14,7 @@ import {
 dotenv.config();
 
 // Set current app mode - "development" | "production"
-process.env.NODE_ENV = process.env.NODE_ENV || "production";
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
