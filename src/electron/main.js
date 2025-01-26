@@ -48,6 +48,8 @@ const createWindow = () => {
   } else {
     win.loadFile(path.join("dist-react/index.html"));
   }
+
+  return win;
 };
 
 app.whenReady().then(() => {
