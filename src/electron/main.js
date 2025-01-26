@@ -1,11 +1,13 @@
-import { app, BrowserWindow, globalShortcut, ipcMain } from "electron";
+import { app, BrowserWindow, globalShortcut } from "electron";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import dotenv from "dotenv";
-import si, { osInfo } from "systeminformation";
-import colors from "colors";
-import { arch } from "os";
+import {
+  setupIPCListeners,
+  setupWindowEvents,
+  setupDevToolsShortcut,
+} from "./lib/setups.mjs";
 
 // Get the environment variables
 dotenv.config();
@@ -35,86 +37,16 @@ const createWindow = () => {
       nodeIntegration: true,
     },
   });
+  setupIPCListeners(win);
+  setupWindowEvents(win);
 
   // HOT RELOADING
   if (process.env.NODE_ENV !== "production") {
     win.loadURL("http://localhost:5173");
-
-    // Toggling Devtools using F11 shortcut
-    globalShortcut.register("F11", () => {
-      if (win.webContents.isDevToolsOpened()) {
-        win.webContents.closeDevTools();
-        win.setSize(800, 600);
-      } else {
-        win.webContents.openDevTools();
-        win.setSize(1200, 600);
-      }
-    });
+    setupDevToolsShortcut(win);
   } else {
     win.loadFile(path.join("dist-react/index.html"));
   }
-
-  // Close window
-  ipcMain.on("close-window", () => {
-    win.close();
-  });
-
-  // minimize window
-  ipcMain.on("minimize-window", () => {
-    win.minimize();
-  });
-
-  // restore or maximize window
-  ipcMain.on("restore-maximize-window", () => {
-    if (win.isMaximized()) {
-      win.restore();
-    } else {
-      win.maximize();
-    }
-  });
-
-  // handle get GPU info with caches
-  let cacheGPUInfo = null;
-  ipcMain.on("get-gpu-info", async () => {
-    if (cacheGPUInfo) {
-      win.webContents.send("gpu-info", cacheGPUInfo);
-    } else {
-      const gpuInfo = await detectGPU();
-      cacheGPUInfo = gpuInfo;
-      win.webContents.send("gpu-info", gpuInfo);
-    }
-  });
-
-  // handle get system info
-  let cacheSystemInfo = null;
-  ipcMain.on("get-system-info", async () => {
-    if (cacheSystemInfo) {
-      win.webContents.send("system-info", cacheSystemInfo);
-    } else {
-      const systemInfo = await detectOS();
-      cacheSystemInfo = systemInfo;
-      win.webContents.send("system-info", systemInfo);
-    }
-  });
-
-  // get window states
-  win.on("maximize", () => {
-    win.webContents.send("window-state", "maximized");
-  });
-
-  win.on("unmaximize", () => {
-    win.webContents.send("window-state", "restored");
-  });
-
-  win.on("minimize", () => {
-    win.webContents.send("window-state", "minimized");
-  });
-
-  win.on("restore", () => {
-    win.webContents.send("window-state", "restored");
-  });
-
-  return win;
 };
 
 app.whenReady().then(() => createWindow());
@@ -129,69 +61,3 @@ app.on("window-all-closed", () => {
     app.quit();
   }
 });
-
-// Detect GPU with platform-specific handling
-async function detectGPU() {
-  try {
-    const gpuInfo = await si.graphics();
-    const { model, vendor } = gpuInfo.controllers[0];
-
-    if (vendor.toLowerCase().includes("nvidia")) {
-      console.log(
-        "NVIDIA GPU detected!!!\n".green + "Hardware:".yellow,
-        model.red
-      );
-    } else if (vendor.toLowerCase().includes("amd")) {
-      console.log(
-        "AMD GPU detected!!!\n".green + "Hardware:".yellow,
-        model.red
-      );
-    } else if (vendor.toLowerCase().includes("intel")) {
-      console.log(
-        "Intel GPU detected!!!\n".green + "Hardware:".yellow,
-        model.red
-      );
-    } else {
-      console.log("!!!No GPU detected, run on CPU Mode!!!".rainbow);
-    }
-
-    return { model: model || "Unknown" };
-  } catch (error) {
-    console.error("GPU detection failed:", error);
-    return { model: `Error - ${error}` };
-  }
-}
-// Detect GPU with platform-specific handling
-async function detectOS() {
-  try {
-    const systemInfo = await si.osInfo();
-    const osPlatform = systemInfo.platform;
-    const systemArch = systemInfo.arch;
-    const osName = systemInfo.distro;
-
-    if (osPlatform.toLowerCase().includes("window")) {
-      console.log(
-        "Window System detected!!!\n".green + "OS:".yellow,
-        osName.red + "\n" + "Architecture:".yellow,
-        systemArch.red
-      );
-    } else if (osPlatform.toLowerCase().includes("linux")) {
-      console.log(
-        "Linux System detected!!!\n".green + "OS:".yellow,
-        osName.red + "\n" + "Architecture:".yellow,
-        systemArch.red
-      );
-    } else {
-      console.log("!!!Unknown Platform, WTF!!!".rainbow);
-    }
-
-    return {
-      platform: osPlatform || "Unknown",
-      arch: systemArch || "Unknown",
-      distro: osName || "Unknown",
-    };
-  } catch (error) {
-    console.error("SystemOS detection failed:", error);
-    return { platform: `Error - ${error}` };
-  }
-}
