@@ -29,26 +29,30 @@ const Dashboard = () => {
           Welcome to VEVE
         </h1>
         <div className="w-full px-4 my-6 space-y-4 mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[90vw] mx-auto"></div>
-          <div className="w-full md:w-max p-4 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 space-y-3">
-            <h2 className="text-xl font-bold text-white mb-2">System</h2>
-            <div className="space-y-2">
-              <div className="p-2 hover:bg-white/5 rounded-lg transition-colors text-left">
-                <span className="text-white">OS: </span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[80%] 2xl:max-w-[60%] mx-auto"></div>
+          <div className="w-full md:w-max p-6 2xl:p-8 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 space-y-4">
+            <h2 className="text-2xl 2xl:text-3xl font-bold text-white mb-4">
+              System
+            </h2>
+            <div className="space-y-1">
+              <div className="p-3 2xl:p-4 hover:bg-white/5 rounded-lg transition-colors text-left">
+                <span className="text-white 2xl:text-xl">OS: </span>
                 {systemInfo.platform ? (
-                  <span className="text-accent">
+                  <span className="text-accent 2xl:text-xl">
                     {systemInfo.distro} {systemInfo.arch}
                   </span>
                 ) : (
-                  <span className="text-accent">loading...</span>
+                  <span className="text-accent 2xl:text-xl">loading...</span>
                 )}
               </div>
-              <div className="p-2 hover:bg-white/5 rounded-lg transition-colors text-left">
-                <span className="text-white">GPU: </span>
+              <div className="p-3 2xl:p-4 hover:bg-white/5 rounded-lg transition-colors text-left">
+                <span className="text-white 2xl:text-xl">GPU: </span>
                 {GPUInfo.model && GPUInfo.model !== "Unknown" ? (
-                  <span className="text-accent">{GPUInfo.model}</span>
+                  <span className="text-accent 2xl:text-xl">
+                    {GPUInfo.model}
+                  </span>
                 ) : (
-                  <span className="text-accent">loading...</span>
+                  <span className="text-accent 2xl:text-xl">loading...</span>
                 )}
               </div>
             </div>
