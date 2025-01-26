@@ -38,7 +38,7 @@ const Options = () => {
       <div className="flex flex-col items-center gap-2">
         <div className="w-full px-4 space-y-4 mx-auto">
           {/* select file */}
-          <div className="w-full p-4 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 space-y-3">
+          <div className="max-w-[90vw] mx-auto p-4 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 space-y-3">
             <h2 className="text-xl font-bold text-white mb-2">Select folder</h2>
             <div className="space-y-4">
               <div className="flex flex-row items-center gap-2 w-full">
