@@ -7,17 +7,29 @@ const Options = () => {
   const [selectedFolder, setSelectedFolder] = useState("");
 
   useEffect(() => {
-    // Get saved folder when component mounts
+    // Get saved values when component mounts
     window.electronExpose.getSavedFolder();
+    window.electronExpose.getSavedSpeed();
+    window.electronExpose.getSavedFrameRate();
 
     const handleFolderSelected = (event, path) => {
       setSelectedFolder(path);
     };
+    const handleSpeedChanged = (event, speed) => {
+      setSpeed(speed);
+    };
+    const handleFrameRateChanged = (event, frameRate) => {
+      setFrameRate(frameRate);
+    };
 
     window.electronExpose.onFolderSelected(handleFolderSelected);
+    window.electronExpose.onSpeedChanged(handleSpeedChanged);
+    window.electronExpose.onFrameRateChanged(handleFrameRateChanged);
 
     return () => {
       window.electronExpose.onFolderSelected(handleFolderSelected);
+      window.electronExpose.onSpeedChanged(handleSpeedChanged);
+      window.electronExpose.onFrameRateChanged(handleFrameRateChanged);
     };
   }, []);
 
@@ -60,7 +72,11 @@ const Options = () => {
                     max="2"
                     step="0.05"
                     value={speed}
-                    onChange={(e) => setSpeed(parseFloat(e.target.value))}
+                    onChange={(e) => {
+                      const newSpeed = parseFloat(e.target.value);
+                      setSpeed(newSpeed);
+                      window.electronExpose.saveSpeed(newSpeed);
+                    }}
                     className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm accent-orange-500"
                   />
                 </div>
@@ -74,7 +90,11 @@ const Options = () => {
                     min="15"
                     max="60"
                     value={frameRate}
-                    onChange={(e) => setFrameRate(parseInt(e.target.value))}
+                    onChange={(e) => {
+                      const newFrameRate = parseInt(e.target.value);
+                      setFrameRate(newFrameRate);
+                      window.electronExpose.saveFrameRate(newFrameRate);
+                    }}
                     className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm accent-orange-500"
                   />
                 </div>

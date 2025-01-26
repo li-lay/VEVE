@@ -38,6 +38,58 @@ export const setupIPCListeners = (win) => {
       console.log(err);
     }
   });
+
+  // Handle speed persistence
+  ipcMain.on("get-saved-speed", (event) => {
+    try {
+      const config = JSON.parse(fs.readFileSync(getConfigPath()));
+      if (config.speed) {
+        event.sender.send("speed-changed", config.speed);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  ipcMain.on("save-speed", (event, speed) => {
+    try {
+      const configPath = getConfigPath();
+      const config = fs.existsSync(configPath)
+        ? JSON.parse(fs.readFileSync(configPath))
+        : {};
+      config.speed = speed;
+      fs.writeFileSync(configPath, JSON.stringify(config));
+      event.sender.send("speed-changed", speed);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  // Handle frame rate persistence
+  ipcMain.on("get-saved-frame-rate", (event) => {
+    try {
+      const config = JSON.parse(fs.readFileSync(getConfigPath()));
+      if (config.frameRate) {
+        event.sender.send("frame-rate-changed", config.frameRate);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  ipcMain.on("save-frame-rate", (event, frameRate) => {
+    try {
+      const configPath = getConfigPath();
+      const config = fs.existsSync(configPath)
+        ? JSON.parse(fs.readFileSync(configPath))
+        : {};
+      config.frameRate = frameRate;
+      fs.writeFileSync(configPath, JSON.stringify(config));
+      event.sender.send("frame-rate-changed", frameRate);
+    } catch (err) {
+      console.log(err);
+    }
+  });
 };
 
 export const setupWindowEvents = (win) => {

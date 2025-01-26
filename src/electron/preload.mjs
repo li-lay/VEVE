@@ -18,6 +18,13 @@ contextBridge.exposeInMainWorld("electronExpose", {
   openFolder: () => ipcRenderer.send("open-folder"),
   getSavedFolder: () => ipcRenderer.send("get-saved-folder"),
   onFolderSelected: (callback) => ipcRenderer.on("folder-selected", callback),
+  getSavedSpeed: () => ipcRenderer.send("get-saved-speed"),
+  saveSpeed: (speed) => ipcRenderer.send("save-speed", speed),
+  onSpeedChanged: (callback) => ipcRenderer.on("speed-changed", callback),
+  getSavedFrameRate: () => ipcRenderer.send("get-saved-frame-rate"),
+  saveFrameRate: (frameRate) => ipcRenderer.send("save-frame-rate", frameRate),
+  onFrameRateChanged: (callback) =>
+    ipcRenderer.on("frame-rate-changed", callback),
 });
 
 console.log("Hello Preload!");
