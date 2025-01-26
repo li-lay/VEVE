@@ -7,13 +7,14 @@ import {
   setupIPCListeners,
   setupWindowEvents,
   setupDevToolsShortcut,
+  cleanupIPCListeners,
 } from "./lib/setups.mjs";
 
 // Get the environment variables
 dotenv.config();
 
 // Set current app mode - "development" | "production"
-process.env.NODE_ENV = process.env.NODE_ENV || "development";
+process.env.NODE_ENV = process.env.NODE_ENV || "production";
 
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
@@ -49,10 +50,18 @@ const createWindow = () => {
   }
 };
 
-app.whenReady().then(() => createWindow());
+app.whenReady().then(() => {
+  const win = createWindow();
+
+  // Cleanup when window is closed
+  win.on("closed", () => {
+    cleanupIPCListeners();
+  });
+});
 
 // Unregister all shortcuts when the app quits
 app.on("will-quit", () => {
+  cleanupIPCListeners();
   globalShortcut.unregisterAll();
 });
 

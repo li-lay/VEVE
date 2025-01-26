@@ -131,3 +131,25 @@ const handleCachedInfo = (win, cacheKey, getInfo) => {
     win.webContents.send(cacheKey, cache);
   };
 };
+
+export const cleanupIPCListeners = () => {
+  try {
+    // Remove all IPC listeners
+    ipcMain.removeAllListeners("close-window");
+    ipcMain.removeAllListeners("minimize-window");
+    ipcMain.removeAllListeners("restore-maximize-window");
+    ipcMain.removeAllListeners("get-gpu-info");
+    ipcMain.removeAllListeners("get-system-info");
+    ipcMain.removeAllListeners("open-folder");
+    ipcMain.removeAllListeners("get-saved-folder");
+    ipcMain.removeAllListeners("get-saved-speed");
+    ipcMain.removeAllListeners("save-speed");
+    ipcMain.removeAllListeners("get-saved-frame-rate");
+    ipcMain.removeAllListeners("save-frame-rate");
+
+    // Unregister global shortcuts
+    globalShortcut.unregister("F11");
+  } catch (error) {
+    console.error("Error during IPC cleanup:", error);
+  }
+};
