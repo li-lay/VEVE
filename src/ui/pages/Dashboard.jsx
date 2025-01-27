@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Wrapper from "../components/Wrapper";
+import Loading from "../components/Loading";
 
 const Dashboard = () => {
   const [GPUInfo, setGPUInfo] = useState({});
@@ -35,24 +36,32 @@ const Dashboard = () => {
               System
             </h2>
             <div className="space-y-1">
-              <div className="p-3 2xl:p-4 hover:bg-white/5 rounded-lg transition-colors text-left">
+              <div className="p-3 2xl:p-4 hover:bg-white/5 rounded-lg transition-colors text-left flex items-center gap-1">
                 <span className="text-white 2xl:text-xl">OS: </span>
                 {systemInfo.platform ? (
                   <span className="text-accent 2xl:text-xl">
                     {systemInfo.distro} {systemInfo.arch}
                   </span>
                 ) : (
-                  <span className="text-accent 2xl:text-xl">loading...</span>
+                  <Loading
+                    size="size-[16px]"
+                    outerColor="white/20"
+                    innerColor="accent"
+                  />
                 )}
               </div>
-              <div className="p-3 2xl:p-4 hover:bg-white/5 rounded-lg transition-colors text-left">
+              <div className="p-3 2xl:p-4 hover:bg-white/5 rounded-lg transition-colors text-left flex items-center gap-1">
                 <span className="text-white 2xl:text-xl">GPU: </span>
                 {GPUInfo.model && GPUInfo.model !== "Unknown" ? (
                   <span className="text-accent 2xl:text-xl">
                     {GPUInfo.model}
                   </span>
                 ) : (
-                  <span className="text-accent 2xl:text-xl">loading...</span>
+                  <Loading
+                    size="size-[16px]"
+                    outerColor="white/20"
+                    innerColor="accent"
+                  />
                 )}
               </div>
             </div>
