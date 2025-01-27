@@ -101,6 +101,7 @@ export const setupWindowEvents = (win) => {
   win.on("unmaximize", () => sendState("window-state", "restored"));
   win.on("minimize", () => sendState("window-state", "minimized"));
   win.on("restore", () => sendState("window-state", "restored"));
+  win.on("closed", () => cleanupIPCListeners());
 };
 
 export const setupDevToolsShortcut = (win) => {
