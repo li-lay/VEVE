@@ -52,14 +52,7 @@ const createWindow = () => {
   return win;
 };
 
-app.whenReady().then(() => {
-  const win = createWindow();
-
-  // Cleanup when window is closed
-  win.on("closed", () => {
-    cleanupIPCListeners();
-  });
-});
+app.whenReady().then(() => createWindow());
 
 // Unregister all shortcuts when the app quits
 app.on("will-quit", () => {
