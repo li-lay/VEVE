@@ -24,7 +24,17 @@ export const setupIPCListeners = (win) => {
         getConfigPath(),
         JSON.stringify({ selectedFolder: selectedPath })
       );
-      event.sender.send("folder-selected", selectedPath);
+
+      // get all videos from selectedPath
+      const videos = fs
+        .readdirSync(selectedPath, {
+          encoding: "utf-8",
+          withFileTypes: true,
+        })
+        .filter((item) => item.isFile() && item.name.endsWith(".mp4"))
+        .map((item) => path.join(selectedPath, item.name));
+
+      event.sender.send("folder-selected", selectedPath, videos);
     }
   });
 
@@ -71,6 +81,25 @@ export const setupIPCListeners = (win) => {
       const config = JSON.parse(fs.readFileSync(getConfigPath()));
       if (config.frameRate) {
         event.sender.send("frame-rate-changed", config.frameRate);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  // Handle getting videos from saved folder
+  ipcMain.on("get-vids-from-saved-folder", (event) => {
+    try {
+      const config = JSON.parse(fs.readFileSync(getConfigPath()));
+      if (config.selectedFolder) {
+        const videos = fs
+          .readdirSync(config.selectedFolder, {
+            encoding: "utf-8",
+            withFileTypes: true,
+          })
+          .filter((item) => item.isFile() && item.name.endsWith(".mp4"))
+          .map((item) => path.join(config.selectedFolder, item.name));
+        event.sender.send("vids-from-saved-folder", videos);
       }
     } catch (err) {
       console.log(err);

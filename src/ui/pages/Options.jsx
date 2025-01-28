@@ -5,15 +5,18 @@ const Options = () => {
   const [speed, setSpeed] = useState(1);
   const [frameRate, setFrameRate] = useState(30);
   const [selectedFolder, setSelectedFolder] = useState("");
+  const [videos, setVideos] = useState([]);
 
   useEffect(() => {
     // Get saved values when component mounts
     window.electronExpose.getSavedFolder();
     window.electronExpose.getSavedSpeed();
     window.electronExpose.getSavedFrameRate();
+    window.electronExpose.getVidsFromSavedFolder();
 
-    const handleFolderSelected = (event, path) => {
+    const handleFolderSelected = (event, path, videos) => {
       setSelectedFolder(path);
+      setVideos(videos);
     };
     const handleSpeedChanged = (event, speed) => {
       setSpeed(speed);
@@ -21,15 +24,24 @@ const Options = () => {
     const handleFrameRateChanged = (event, frameRate) => {
       setFrameRate(frameRate);
     };
+    const handleGettingVidsFromSavedFolder = (event, videos) => {
+      setVideos(videos);
+    };
 
     window.electronExpose.onFolderSelected(handleFolderSelected);
     window.electronExpose.onSpeedChanged(handleSpeedChanged);
     window.electronExpose.onFrameRateChanged(handleFrameRateChanged);
+    window.electronExpose.onGettingVidsFromSavedFolder(
+      handleGettingVidsFromSavedFolder
+    );
 
     return () => {
       window.electronExpose.onFolderSelected(handleFolderSelected);
       window.electronExpose.onSpeedChanged(handleSpeedChanged);
       window.electronExpose.onFrameRateChanged(handleFrameRateChanged);
+      window.electronExpose.onGettingVidsFromSavedFolder(
+        handleGettingVidsFromSavedFolder
+      );
     };
   }, []);
 
@@ -101,6 +113,18 @@ const Options = () => {
               </div>
             </div>
           </div>
+          {videos?.length > 0 && (
+            <>
+              <h2 className="text-accent text-xl mb-4">
+                Total vids in selected folder: {videos?.length}
+              </h2>
+              <ol className="list-inside list-decimal">
+                {videos?.map((vid, idx) => (
+                  <li key={idx}>{vid}</li>
+                ))}
+              </ol>
+            </>
+          )}
         </div>
       </div>
     </Wrapper>
