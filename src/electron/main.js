@@ -2,6 +2,7 @@ import { app, BrowserWindow, globalShortcut } from "electron";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+import { setupFFmpeg, createFFmpeg } from "./lib/ffmpeg/ffmpeg.mjs";
 import {
   setupIPCListeners,
   setupWindowEvents,
@@ -21,6 +22,32 @@ process.env.NODE_ENV = process.env.NODE_ENV || "development";
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+// Test FFmpeg setup and functionality
+async function testFFmpeg() {
+  try {
+    console.log("Testing FFmpeg setup...");
+    await setupFFmpeg();
+    const command = createFFmpeg();
+
+    // Test FFmpeg by getting version info
+    command
+      .on("start", (commandLine) => {
+        console.log("FFmpeg command:", commandLine);
+      })
+      .on("error", (err) => {
+        console.error("FFmpeg test failed:", err);
+      })
+      .on("end", () => {
+        console.log("FFmpeg test successful!");
+      })
+      .outputOptions(["-version"])
+      .output("/dev/null")
+      .run();
+  } catch (error) {
+    console.error("FFmpeg setup failed:", error);
+  }
+}
 
 // Function to create a new browser window
 const createWindow = () => {
@@ -59,7 +86,10 @@ const createWindow = () => {
   }
 };
 
-app.whenReady().then(() => createWindow());
+app.whenReady().then(async () => {
+  await testFFmpeg();
+  createWindow();
+});
 
 // Unregister all shortcuts when the app quits
 app.on("will-quit", () => {
