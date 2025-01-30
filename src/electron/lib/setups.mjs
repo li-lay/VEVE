@@ -2,6 +2,7 @@ import { ipcMain, globalShortcut, dialog, app } from "electron";
 import fs from "fs";
 import path from "path";
 import { detectGPU, detectOS } from "./detects.mjs";
+import { setupFFmpeg } from "./ffmpeg/ffmpeg.mjs";
 
 export const setupIPCListeners = (win) => {
   ipcMain.on("close-window", () => win.close());
@@ -117,6 +118,31 @@ export const setupIPCListeners = (win) => {
       event.sender.send("frame-rate-changed", frameRate);
     } catch (err) {
       console.log(err);
+    }
+  });
+
+  // rendering videos
+  ipcMain.on("start-processing", async (event, options) => {
+    try {
+      const command = await setupFFmpeg();
+      const { speed, frameRate, videos } = options;
+      const video = videos[0].toString();
+      const floatSpeed = parseFloat(1 / speed);
+      const directory = path.dirname(video);
+
+      command
+        .on("progress", (prog) => {
+          console.log(`Rendering: ${prog.percent.toFixed(2)}%`);
+        })
+        .input(video)
+        .fps(frameRate) //change FPS of the video
+        .output(path.join(directory, "output.mp4"))
+        .on("end", () => {
+          console.log("Rendering: 100% Done!");
+        })
+        .run();
+    } catch (error) {
+      console.error("Processing failed:", error);
     }
   });
 };
