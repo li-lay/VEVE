@@ -9,7 +9,7 @@ import {
 } from "./lib/setups.mjs";
 
 // Set current app mode - "development" | "production"
-process.env.NODE_ENV = process.env.NODE_ENV || "development";
+process.env.NODE_ENV = process.env.NODE_ENV || "production";
 
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);

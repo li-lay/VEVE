@@ -2,7 +2,7 @@ import { ipcMain, globalShortcut, dialog, app } from "electron";
 import fs from "fs";
 import path from "path";
 import { detectGPU, detectOS } from "./detects.mjs";
-import { setupFFmpeg } from "./ffmpeg/ffmpeg.mjs";
+import { setupFFmpeg } from "./ffmpeg.mjs";
 
 export const setupIPCListeners = (win) => {
   ipcMain.on("close-window", () => win.close());
