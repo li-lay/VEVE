@@ -21,11 +21,5 @@ export async function setupFFmpeg() {
 
   ffmpeg.setFfmpegPath(ffmpegPath);
   ffmpeg.setFfprobePath(ffprobePath);
-
-  return ffmpeg;
-}
-
-// Helper function to create an FFmpeg command with proper configuration
-export function createFFmpeg() {
   return ffmpeg();
 }
