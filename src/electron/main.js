@@ -1,8 +1,6 @@
 import { app, BrowserWindow, globalShortcut } from "electron";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import dotenv from "dotenv";
-import { setupFFmpeg, createFFmpeg } from "./lib/ffmpeg/ffmpeg.mjs";
 import {
   setupIPCListeners,
   setupWindowEvents,
@@ -10,44 +8,12 @@ import {
   cleanupIPCListeners,
 } from "./lib/setups.mjs";
 
-// Load environment variables
-const result = dotenv.config();
-if (result.error) {
-  throw result.error;
-}
-
 // Set current app mode - "development" | "production"
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-// Test FFmpeg setup and functionality
-async function testFFmpeg() {
-  try {
-    console.log("Testing FFmpeg setup...");
-    await setupFFmpeg();
-    const command = createFFmpeg();
-
-    // Test FFmpeg by getting version info
-    command
-      .on("start", (commandLine) => {
-        console.log("FFmpeg command:", commandLine);
-      })
-      .on("error", (err) => {
-        console.error("FFmpeg test failed:", err);
-      })
-      .on("end", () => {
-        console.log("FFmpeg test successful!");
-      })
-      .outputOptions(["-version"])
-      .output("/dev/null")
-      .run();
-  } catch (error) {
-    console.error("FFmpeg setup failed:", error);
-  }
-}
 
 // Function to create a new browser window
 const createWindow = () => {
@@ -87,7 +53,6 @@ const createWindow = () => {
 };
 
 app.whenReady().then(async () => {
-  await testFFmpeg();
   createWindow();
 });
 
