@@ -71,6 +71,16 @@ const Options = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[90vw] mx-auto">
             <div className="w-full p-4 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 space-y-3">
+              <h2 className="text-xl font-bold text-white mb-2">Folder</h2>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-white">Videos Found</span>
+                  <span className="text-2xl font-bold text-orange-500"></span>
+                  {videos?.length || 0}
+                </div>
+              </div>
+            </div>
+            <div className="w-full p-4 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 space-y-3">
               <h2 className="text-xl font-bold text-white mb-2">Playback</h2>
               <div className="space-y-4">
                 <div>
@@ -113,18 +123,29 @@ const Options = () => {
               </div>
             </div>
           </div>
-          {videos?.length > 0 && (
-            <>
-              <h2 className="text-accent text-xl mb-4">
-                Total vids in selected folder: {videos?.length}
-              </h2>
-              <ol className="list-inside list-decimal">
-                {videos?.map((vid, idx) => (
-                  <li key={idx}>{vid}</li>
-                ))}
-              </ol>
-            </>
-          )}
+          <div className="mt-6 text-center">
+            <button
+              onClick={async () => {
+                try {
+                  await window.electronExpose.startProcessing({
+                    speed,
+                    frameRate,
+                    videos,
+                  });
+                } catch (error) {
+                  console.error("Processing failed:", error);
+                }
+              }}
+              disabled={!selectedFolder || videos?.length === 0}
+              className={`px-6 py-3 ${
+                selectedFolder && videos?.length > 0
+                  ? "bg-orange-500 hover:bg-orange-600"
+                  : "bg-gray-500 cursor-not-allowed"
+              } text-white rounded-lg transition-colors`}
+            >
+              Start Processing
+            </button>
+          </div>
         </div>
       </div>
     </Wrapper>
