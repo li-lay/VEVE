@@ -6,6 +6,7 @@ const Options = () => {
   const [frameRate, setFrameRate] = useState(30);
   const [selectedFolder, setSelectedFolder] = useState("");
   const [videos, setVideos] = useState([]);
+  const [processInfo, setProcessInfo] = useState(0);
 
   useEffect(() => {
     // Get saved values when component mounts
@@ -27,6 +28,9 @@ const Options = () => {
     const handleGettingVidsFromSavedFolder = (event, videos) => {
       setVideos(videos);
     };
+    const handleProcessingInfo = (event, info) => {
+      setProcessInfo(info);
+    };
 
     window.electronExpose.onFolderSelected(handleFolderSelected);
     window.electronExpose.onSpeedChanged(handleSpeedChanged);
@@ -34,6 +38,7 @@ const Options = () => {
     window.electronExpose.onGettingVidsFromSavedFolder(
       handleGettingVidsFromSavedFolder
     );
+    window.electronExpose.getProcessingInfo(handleProcessingInfo);
 
     return () => {
       window.electronExpose.onFolderSelected(handleFolderSelected);
@@ -42,6 +47,7 @@ const Options = () => {
       window.electronExpose.onGettingVidsFromSavedFolder(
         handleGettingVidsFromSavedFolder
       );
+      window.electronExpose.getProcessingInfo(handleProcessingInfo);
     };
   }, []);
 
@@ -136,11 +142,22 @@ const Options = () => {
                   console.error("Processing failed:", error);
                 }
               }}
-              disabled={!selectedFolder || videos?.length === 0}
+              disabled={
+                !selectedFolder || videos?.length === 0 || processInfo > 0.0
+              }
               className={`px-6 py-3 text-white rounded-lg transition-colors bg-orange-500 hover:bg-orange-600 disabled:bg-gray-500 disabled:cursor-not-allowed`}
             >
-              Start Processing
+              {processInfo > 0.0 ? "Rendering..." : "Start Processing"}
             </button>
+
+            <div className="max-w-[90vw] mx-auto mt-5 h-6 w-full border border-white/20 rounded-xl bg-white/10 overflow-hidden">
+              <p
+                style={{ width: `${processInfo.toFixed(2)}%` }}
+                className={`bg-orange-500 h-full m-0 text-sm p-0 transition-all rounded-e-xl`}
+              >
+                {processInfo.toFixed(0)}%
+              </p>
+            </div>
           </div>
         </div>
       </div>
