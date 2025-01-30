@@ -137,11 +137,7 @@ const Options = () => {
                 }
               }}
               disabled={!selectedFolder || videos?.length === 0}
-              className={`px-6 py-3 ${
-                selectedFolder && videos?.length > 0
-                  ? "bg-orange-500 hover:bg-orange-600"
-                  : "bg-gray-500 cursor-not-allowed"
-              } text-white rounded-lg transition-colors`}
+              className={`px-6 py-3 text-white rounded-lg transition-colors bg-orange-500 hover:bg-orange-600 disabled:bg-gray-500 disabled:cursor-not-allowed`}
             >
               Start Processing
             </button>
