@@ -28,8 +28,10 @@ contextBridge.exposeInMainWorld("electronExpose", {
     ipcRenderer.on("frame-rate-changed", callback),
   onGettingVidsFromSavedFolder: (callback) =>
     ipcRenderer.on("vids-from-saved-folder", callback),
+
   // rendering videos
   startProcessing: (options) => ipcRenderer.send("start-processing", options),
+  getProcessingInfo: (callback) => ipcRenderer.on("processing-info", callback),
 });
 
 console.log("Hello Preload!");

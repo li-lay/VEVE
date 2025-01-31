@@ -132,7 +132,10 @@ export const setupIPCListeners = (win) => {
 
       command
         .on("progress", (prog) => {
-          console.log(`Rendering: ${prog.percent.toFixed(2)}%`);
+          if (prog.percent !== NaN || prog.percent !== undefined) {
+            console.log(`Rendering: ${prog.percent.toFixed(2)}%`);
+            event.sender.send("processing-info", prog.percent);
+          }
         })
         .input(video)
         .fps(frameRate) //change FPS of the video

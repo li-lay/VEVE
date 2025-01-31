@@ -9,7 +9,7 @@ import {
 } from "./lib/setups.mjs";
 
 // Set current app mode - "development" | "production"
-process.env.NODE_ENV = process.env.NODE_ENV || "production";
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
@@ -45,16 +45,12 @@ const createWindow = () => {
     } else {
       win.loadFile(path.join("dist-react/index.html"));
     }
-
-    return win;
   } catch (error) {
     console.error("Failed to create the browser window:", error);
   }
 };
 
-app.whenReady().then(async () => {
-  createWindow();
-});
+app.whenReady().then(async () => createWindow());
 
 // Unregister all shortcuts when the app quits
 app.on("will-quit", () => {
