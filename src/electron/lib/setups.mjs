@@ -127,33 +127,72 @@ export const setupIPCListeners = (win) => {
       const command = await setupFFmpeg();
       const encoder = await detectEncoders();
       const { speed, frameRate, videos } = options;
-      const video = videos[0].toString();
-      const floatSpeed = parseFloat(1 / speed);
-      const directory = path.dirname(video);
 
-      command
-        .on("progress", (prog) => {
-          if (prog.percent !== NaN || prog.percent !== undefined) {
-            console.log(`Rendering: ${prog.percent.toFixed(2)}%`);
-            event.sender.send("processing-info", prog.percent);
-          }
-        })
-        .input(video)
-        .outputOptions([
-          `-filter:v setpts=${floatSpeed}*PTS`, // change video speed
-          `-filter:a atempo=${speed}`, // change audio speed
-          `-c:v ${encoder}`, // Use encoder of the system
-          `-r ${frameRate}`, // Set frame rate
-        ])
-        // .fps(frameRate) //change FPS of the video
-        .output(
-          path.join(directory, `veve-${Date.now()}-${path.basename(video)}`)
-        )
-        .on("end", () => {
-          console.log("Rendering: 100% Done!");
-          event.sender.send("processing-done", true);
-        })
-        .run();
+      const totalVideos = videos.length;
+      let totalProgress = 0;
+      let totalDone = 0;
+
+      // Function to render a video sequentially
+      const renderVideoSequentially = async (video, index) => {
+        return new Promise((resolve, reject) => {
+          const videoProgContribute = 100 / totalVideos;
+
+          const videoCommand = command.clone();
+
+          videoCommand
+            .on("progress", (prog) => {
+              if (!Number.isNaN(prog.percent) && prog.percent !== undefined) {
+                const currentVideoProgress =
+                  (prog.percent / 100) * videoProgContribute;
+                totalProgress =
+                  index * videoProgContribute + currentVideoProgress;
+
+                // Ensure totalProgress not go over 100%
+                totalProgress = Math.min(totalProgress, 100);
+
+                console.log(
+                  `Rendering video ${index + 1}: ${prog.percent.toFixed(
+                    2
+                  )}% (Total Progress: ${totalProgress.toFixed(2)}%)`
+                );
+                event.sender.send(
+                  "processing-info",
+                  parseFloat(totalProgress.toFixed(2))
+                );
+              }
+            })
+            .input(video)
+            .outputOptions([
+              `-filter:v setpts=${parseFloat(1 / speed)}*PTS`, // Change video speed
+              `-filter:a atempo=${speed}`, // Change audio speed
+              `-c:v ${encoder}`, // Use encoder of the system
+              `-r ${frameRate}`, // Set frame rate
+            ])
+            .output(
+              path.join(
+                path.dirname(video),
+                `veve-${getFormattedTime()}-${path.basename(video)}`
+              )
+            )
+            .on("end", () => {
+              console.log(`Rendering video ${index + 1}: Done!`);
+              totalDone++;
+              if (totalDone === totalVideos) {
+                event.sender.send("processing-done", true);
+              }
+              resolve(); // Resolve after the video has finished rendering
+            })
+            .on("error", (err) => {
+              console.error("Error rendering video:", err);
+              reject(err); // Reject if there's an error during the process
+            })
+            .run();
+        });
+      };
+
+      for (let idx = 0; idx < totalVideos; idx++) {
+        await renderVideoSequentially(videos[idx], idx); // Wait each video rendering
+      }
     } catch (error) {
       console.error("Processing failed:", error);
     }
@@ -199,6 +238,17 @@ const handleCachedInfo = (win, cacheKey, getInfo) => {
     }
     win.webContents.send(cacheKey, cache);
   };
+};
+
+const getFormattedTime = () => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed, so add 1
+  const day = String(now.getDate()).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  return `${year}-${month}-${day}-${hours}-${minutes}-${seconds}`;
 };
 
 export const cleanupIPCListeners = () => {

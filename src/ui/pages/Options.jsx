@@ -6,7 +6,7 @@ const Options = () => {
   const [frameRate, setFrameRate] = useState(30);
   const [selectedFolder, setSelectedFolder] = useState("");
   const [videos, setVideos] = useState([]);
-  const [processInfo, setProcessInfo] = useState(0);
+  const [processInfo, setProcessInfo] = useState(0.0);
   const [processDone, setProcessDone] = useState(false);
 
   useEffect(() => {
