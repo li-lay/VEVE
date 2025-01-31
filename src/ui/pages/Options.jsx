@@ -16,6 +16,7 @@ const Options = () => {
     window.electronExpose.getProcessingDone(handleProcessDone);
 
     if (processDone) {
+      setProcessInfo(100); // complete the progress bar for speeding up videos
       // wait a 2.5 seconds for showing success
       setTimeout(() => {
         setProcessInfo(0);
