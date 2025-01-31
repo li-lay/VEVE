@@ -7,6 +7,23 @@ const Options = () => {
   const [selectedFolder, setSelectedFolder] = useState("");
   const [videos, setVideos] = useState([]);
   const [processInfo, setProcessInfo] = useState(0);
+  const [processDone, setProcessDone] = useState(false);
+
+  useEffect(() => {
+    const handleProcessDone = (event, done) => {
+      setProcessDone(done);
+    };
+    window.electronExpose.getProcessingDone(handleProcessDone);
+
+    if (processDone) {
+      // wait a 2.5 seconds for showing success
+      setTimeout(() => {
+        setProcessInfo(0);
+        setProcessDone(false);
+        window.electronExpose.getVidsFromSavedFolder();
+      }, 2500);
+    }
+  }, [processDone]);
 
   useEffect(() => {
     // Get saved values when component mounts
@@ -81,9 +98,16 @@ const Options = () => {
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="text-white">Videos Found</span>
-                  <span className="text-2xl font-bold text-orange-500"></span>
-                  {videos?.length || 0}
+                  <span className="font-bold text-orange-500">
+                    {videos?.length || 0}
+                  </span>
                 </div>
+                {processDone && (
+                  <div className="flex justify-between items-center border border-green-300 px-4 py-2 rounded-xl bg-green-500/10">
+                    <span className="text-white">Status: </span>
+                    <span className="font-bold text-green-400">Done</span>
+                  </div>
+                )}
               </div>
             </div>
             <div className="w-full p-4 bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 space-y-3">
@@ -153,7 +177,7 @@ const Options = () => {
             <div className="max-w-[90vw] mx-auto mt-5 h-6 w-full border border-white/20 rounded-xl bg-white/10 overflow-hidden">
               <p
                 style={{ width: `${processInfo.toFixed(2)}%` }}
-                className={`bg-orange-500 h-full m-0 text-sm p-0 transition-all rounded-e-xl`}
+                className={`bg-gradient-to-r from-orange-500 to-orange-600 h-full m-0 text-sm p-0 transition-all rounded-e-xl`}
               >
                 {processInfo.toFixed(0)}%
               </p>

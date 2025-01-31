@@ -142,6 +142,7 @@ export const setupIPCListeners = (win) => {
         .output(path.join(directory, "output.mp4"))
         .on("end", () => {
           console.log("Rendering: 100% Done!");
+          event.sender.send("processing-done", true);
         })
         .run();
     } catch (error) {
