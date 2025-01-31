@@ -16,10 +16,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Function to create a new browser window
-let win;
 const createWindow = () => {
   try {
-    win = new BrowserWindow({
+    const win = new BrowserWindow({
       width: 800,
       height: 600,
       minimizable: true,
@@ -57,7 +56,6 @@ app.whenReady().then(async () => createWindow());
 app.on("will-quit", () => {
   cleanupIPCListeners();
   globalShortcut.unregisterAll();
-  win = null; // clear the reference
 });
 
 app.on("window-all-closed", () => {
