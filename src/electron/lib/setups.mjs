@@ -1,7 +1,7 @@
 import { ipcMain, globalShortcut, dialog, app } from "electron";
 import fs from "fs";
 import path from "path";
-import { detectGPU, detectOS } from "./detects.mjs";
+import { detectEncoders, detectGPU, detectOS } from "./detects.mjs";
 import { setupFFmpeg } from "./ffmpeg.mjs";
 
 export const setupIPCListeners = (win) => {
@@ -125,6 +125,7 @@ export const setupIPCListeners = (win) => {
   ipcMain.on("start-processing", async (event, options) => {
     try {
       const command = await setupFFmpeg();
+      const encoder = await detectEncoders();
       const { speed, frameRate, videos } = options;
       const video = videos[0].toString();
       const floatSpeed = parseFloat(1 / speed);
@@ -138,8 +139,16 @@ export const setupIPCListeners = (win) => {
           }
         })
         .input(video)
-        .fps(frameRate) //change FPS of the video
-        .output(path.join(directory, "output.mp4"))
+        .outputOptions([
+          `-filter:v setpts=${floatSpeed}*PTS`, // change video speed
+          `-filter:a atempo=${speed}`, // change audio speed
+          `-c:v ${encoder}`, // Use encoder of the system
+          `-r ${frameRate}`, // Set frame rate
+        ])
+        // .fps(frameRate) //change FPS of the video
+        .output(
+          path.join(directory, `veve-${Date.now()}-${path.basename(video)}`)
+        )
         .on("end", () => {
           console.log("Rendering: 100% Done!");
           event.sender.send("processing-done", true);
