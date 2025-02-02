@@ -32,6 +32,7 @@ contextBridge.exposeInMainWorld("electronExpose", {
   // rendering videos
   startProcessing: (options) => ipcRenderer.send("start-processing", options),
   getProcessingInfo: (callback) => ipcRenderer.on("processing-info", callback),
+  getProcessingDone: (callback) => ipcRenderer.on("processing-done", callback),
 });
 
 console.log("Hello Preload!");

@@ -33,7 +33,7 @@ export async function detectGPU() {
   }
 }
 
-// Detect GPU with platform-specific handling
+// Detect OS
 export async function detectOS() {
   try {
     const systemInfo = await si.osInfo();
@@ -66,4 +66,26 @@ export async function detectOS() {
     console.error("SystemOS detection failed:", error);
     return { platform: `Error - ${error}` };
   }
+}
+
+// Detect encoders
+export async function detectEncoders() {
+  const gpuInfo = (await si.graphics()).controllers[0];
+  const { vendor: gpuVendor } = gpuInfo;
+
+  let encoder = "libx264"; // Default CPU encoder
+
+  if (gpuVendor.toLowerCase().includes("nvidia")) {
+    encoder = "h264_nvenc";
+  } else if (gpuVendor.toLowerCase().includes("intel")) {
+    encoder = "h264_qsv";
+  } else if (gpuVendor.toLowerCase().includes("amd")) {
+    encoder = "h264_amf";
+  } else if (gpuVendor.toLowerCase().includes("apple")) {
+    encoder = "h264_videotoolbox";
+  }
+
+  console.log("Encoder from GPU: ".yellow + encoder.green);
+
+  return encoder;
 }
