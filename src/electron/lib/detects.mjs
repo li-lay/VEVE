@@ -1,5 +1,6 @@
 import si from "systeminformation";
 import colors from "colors";
+import { setupFFmpeg } from "./ffmpeg.mjs";
 
 // Detect GPU with platform-specific handling
 export async function detectGPU() {
@@ -68,24 +69,41 @@ export async function detectOS() {
   }
 }
 
-// Detect encoders
-export async function detectEncoders() {
+// detect encoders based on GPU
+export async function detectEncodersByGPU() {
+  const ffmpeg = await setupFFmpeg();
   const gpuInfo = (await si.graphics()).controllers[0];
-  const { vendor: gpuVendor } = gpuInfo;
+  const { vendor: GPUCompany } = gpuInfo;
 
-  let encoder = "libx264"; // Default CPU encoder
+  const vendor = GPUCompany.toLowerCase();
 
-  if (gpuVendor.toLowerCase().includes("nvidia")) {
-    encoder = "h264_nvenc";
-  } else if (gpuVendor.toLowerCase().includes("intel")) {
-    encoder = "h264_qsv";
-  } else if (gpuVendor.toLowerCase().includes("amd")) {
-    encoder = "h264_amf";
-  } else if (gpuVendor.toLowerCase().includes("apple")) {
-    encoder = "h264_videotoolbox";
+  // Wrap `getAvailableEncoders` in a Promise to handle async properly
+  const encoders = await new Promise((resolve, reject) => {
+    ffmpeg.getAvailableEncoders((err, encs) => {
+      if (err) {
+        reject(`Error getting encoders: ${err}`);
+      } else {
+        resolve(encs);
+      }
+    });
+  });
+
+  // Define GPU-based encoders
+  const gpuEncoders = {
+    nvidia: ["h264_nvenc", "hevc_nvenc", "av1_nvenc"],
+    amd: ["h264_amf", "hevc_amf"],
+    intel: ["h264_qsv", "hevc_qsv"],
+  };
+
+  // Get best available encoder for detected GPU
+  let bestEncoder = "libx264"; // Default CPU-based encoder
+  for (const [key, values] of Object.entries(gpuEncoders)) {
+    if (vendor.includes(key)) {
+      bestEncoder = values.find((enc) => encoders[enc]) || bestEncoder;
+      break;
+    }
   }
 
-  console.log("Encoder from GPU: ".yellow + encoder.green);
-
-  return encoder;
+  console.log("Selected encoder: ".yellow + bestEncoder.green);
+  return bestEncoder;
 }
