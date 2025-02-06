@@ -1,7 +1,7 @@
 import { ipcMain, globalShortcut, dialog, app } from "electron";
 import fs from "fs";
 import path from "path";
-import { detectEncoders, detectGPU, detectOS } from "./detects.mjs";
+import { detectEncodersByGPU, detectGPU, detectOS } from "./detects.mjs";
 import { setupFFmpeg } from "./ffmpeg.mjs";
 
 export const setupIPCListeners = (win) => {
@@ -125,7 +125,8 @@ export const setupIPCListeners = (win) => {
   ipcMain.on("start-processing", async (event, options) => {
     try {
       const command = await setupFFmpeg();
-      const encoder = await detectEncoders();
+      // const encoder = await detectEncoders();
+      const encoder = await detectEncodersByGPU();
       const { speed, frameRate, videos } = options;
 
       const totalVideos = videos.length;
